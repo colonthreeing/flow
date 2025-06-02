@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=3 uid="uid://t8iwlnfi1qwa"]
+
+[sub_resource type="GDScript" id="GDScript_hsxkw"]
+script/source = "extends GraphNode
+
+
+func _on_native_file_dialog_file_selected(path: String) -> void:
+	pass # Replace with function body.
+
+
+func _on_button_pressed() -> void:
+	$NativeFileDialog.show()
+"
+
+[node name="DisplayChangeSprite" type="GraphNode"]
+offset_right = 256.0
+offset_bottom = 256.0
+title = "ChangeSprite"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 0, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+script = SubResource("GDScript_hsxkw")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Sprite"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "Select"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+
+[node name="NativeFileDialog" type="NativeFileDialog" parent="."]
+title = "Open a File"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png", "*.jpg", "*.jpeg")
+
+[node name="NativeConfirmationDialog" type="NativeConfirmationDialog" parent="."]
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="file_selected" from="NativeFileDialog" to="." method="_on_native_file_dialog_file_selected"]

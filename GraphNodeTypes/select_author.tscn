@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://caj7gmrwueysu"]
+
+[node name="SelectAuthor" type="OptionButton"]
+offset_right = 32.0
+offset_bottom = 20.0
+selected = 0
+item_count = 3
+popup/item_0/text = "Author1"
+popup/item_0/id = 0
+popup/item_1/text = "Author2"
+popup/item_1/id = 1
+popup/item_2/text = "Author3"
+popup/item_2/id = 2

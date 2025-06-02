@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bqs12nhc3au0p"]
+
+[node name="ControlWait" type="GraphNode"]
+title = "Wait"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Pause Time"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+emoji_menu_enabled = false
+virtual_keyboard_type = 2
