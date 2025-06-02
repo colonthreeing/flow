@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://b83b8mgf7l12w"]
+
+[ext_resource type="Script" uid="uid://ctra772arulls" path="res://Scripts/UIManager.gd" id="1_mmvkr"]
+[ext_resource type="Theme" uid="uid://chxsbitmb5lsf" path="res://Themes/generated/dark_theme.tres" id="1_qxndv"]
+[ext_resource type="Script" uid="uid://dkomkmenms0ci" path="res://Scripts/GraphManager.gd" id="2_vwjav"]
+[ext_resource type="PackedScene" uid="uid://t8iwlnfi1qwa" path="res://GraphNodeTypes/Nodes/DisplayChangeSprite.tscn" id="3_qxndv"]
+[ext_resource type="PackedScene" uid="uid://cehglqie0uvvo" path="res://Nodes/RightClickMenu.tscn" id="3_uc1n5"]
+[ext_resource type="PackedScene" uid="uid://dv8roktwrsal5" path="res://Nodes/AddNewNodeMenu.tscn" id="4_vwjav"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwjav"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.171361, 0.171362, 0.171361, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.466667)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="MainScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qxndv")
+script = ExtResource("1_mmvkr")
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+right_disconnects = true
+minimap_opacity = 1.0
+script = ExtResource("2_vwjav")
+
+[node name="DisplayChangeSprite" parent="GraphEdit" instance=ExtResource("3_qxndv")]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 119.0
+offset_right = 364.0
+offset_bottom = 508.0
+mouse_filter = 1
+position_offset = Vector2(72, 119)
+
+[node name="RightClickMenu" parent="." instance=ExtResource("3_uc1n5")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 798.0
+offset_top = 366.0
+offset_right = 931.0
+offset_bottom = 424.0
+
+[node name="AddNewNodeMenuPopup" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Add New Node"
+initial_position = 2
+size = Vector2i(524, 558)
+theme_override_styles/panel = SubResource("StyleBoxFlat_vwjav")
+
+[node name="NewNodeMenu" parent="AddNewNodeMenuPopup" instance=ExtResource("4_vwjav")]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 514.0
+offset_bottom = 548.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="connection_request" from="GraphEdit" to="GraphEdit" method="_on_connection_request"]
+[connection signal="copy_nodes_request" from="GraphEdit" to="GraphEdit" method="_on_copy_nodes_request"]
+[connection signal="delete_nodes_request" from="GraphEdit" to="GraphEdit" method="_on_delete_nodes_request"]
+[connection signal="disconnection_request" from="GraphEdit" to="GraphEdit" method="_on_disconnection_request"]
+[connection signal="node_deselected" from="GraphEdit" to="GraphEdit" method="_on_node_deselected"]
+[connection signal="node_selected" from="GraphEdit" to="GraphEdit" method="_on_node_selected"]
+[connection signal="right_clicked" from="GraphEdit" to="." method="show_rightclick_menu"]
+[connection signal="delete_requested" from="RightClickMenu" to="." method="_on_right_click_menu_delete_requested"]
+[connection signal="delete_requested" from="RightClickMenu" to="GraphEdit" method="_on_delete_nodes_request"]
+[connection signal="focus_exited" from="RightClickMenu" to="." method="close_rightclick_menu"]
+[connection signal="new_node_requested" from="RightClickMenu" to="." method="_on_right_click_menu_new_node_requested"]
+[connection signal="requested_close" from="AddNewNodeMenuPopup/NewNodeMenu" to="." method="close_new_mode_menu"]
+[connection signal="requested_new_node" from="AddNewNodeMenuPopup/NewNodeMenu" to="." method="_on_requested_new_node"]

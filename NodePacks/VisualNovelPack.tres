@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="TreePack" load_steps=10 format=3 uid="uid://b5ltmlr85hmck"]
+
+[ext_resource type="Script" uid="uid://cfaqhouwqmdry" path="res://GraphNodeTypes/TreeNode.gd" id="1_m1w0v"]
+[ext_resource type="Script" uid="uid://byv4874c2kyki" path="res://GraphNodeTypes/TreeNodeCategory.gd" id="2_57xdb"]
+[ext_resource type="Script" uid="uid://b01uilo8hbgc6" path="res://GraphNodeTypes/TreeNodeResource.gd" id="2_kg3u8"]
+[ext_resource type="Script" uid="uid://dc1y8nh43wnxc" path="res://GraphNodeTypes/TreePack.gd" id="2_urfju"]
+
+[sub_resource type="Resource" id="Resource_8xp5q"]
+script = ExtResource("2_kg3u8")
+scene = "uid://dqkbw4wnkr7s4"
+node_name = "colon three"
+description = ""
+metadata/_custom_type_script = "uid://b01uilo8hbgc6"
+
+[sub_resource type="Resource" id="Resource_c1h8l"]
+script = ExtResource("2_kg3u8")
+scene = "uid://dug0or0yvexqp"
+node_name = "woke mob"
+description = ""
+metadata/_custom_type_script = "uid://b01uilo8hbgc6"
+
+[sub_resource type="Resource" id="Resource_57xdb"]
+script = ExtResource("2_kg3u8")
+scene = null
+node_name = ":3"
+description = "333333"
+metadata/_custom_type_script = "uid://b01uilo8hbgc6"
+
+[sub_resource type="Resource" id="Resource_gc507"]
+script = ExtResource("2_57xdb")
+children = Array[ExtResource("1_m1w0v")]([SubResource("Resource_57xdb")])
+node_name = "cock and ball"
+description = "torture"
+metadata/_custom_type_script = "uid://byv4874c2kyki"
+
+[sub_resource type="Resource" id="Resource_kg3u8"]
+script = ExtResource("2_57xdb")
+children = Array[ExtResource("1_m1w0v")]([SubResource("Resource_8xp5q"), SubResource("Resource_c1h8l"), SubResource("Resource_gc507")])
+node_name = "Display"
+description = "yippe"
+metadata/_custom_type_script = "uid://byv4874c2kyki"
+
+[resource]
+script = ExtResource("2_urfju")
+pack_name = "Visual Novel"
+pack_description = "Nodes for making a visual novel game."
+pack_contents = Array[ExtResource("1_m1w0v")]([SubResource("Resource_kg3u8")])
+metadata/_custom_type_script = "uid://dc1y8nh43wnxc"

@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv8roktwrsal5"]
+
+[ext_resource type="Script" uid="uid://ciq2ni0k61noj" path="res://Scripts/add_new_node_menu.gd" id="1_c6g5r"]
+[ext_resource type="Theme" uid="uid://chxsbitmb5lsf" path="res://Themes/generated/dark_theme.tres" id="1_dwutu"]
+[ext_resource type="Resource" uid="uid://b5ltmlr85hmck" path="res://NodePacks/VisualNovelPack.tres" id="2_77cua"]
+
+[node name="NewNodeMenu" type="VBoxContainer"]
+anchors_preset = -1
+anchor_right = 0.451
+anchor_bottom = 0.855
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 0.447937
+offset_bottom = -0.0400391
+theme = ExtResource("1_dwutu")
+script = ExtResource("1_c6g5r")
+nodes = ExtResource("2_77cua")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+text = "Add Node"
+
+[node name="Search" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Search..."
+clear_button_enabled = true
+
+[node name="Tree" type="Tree" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+allow_search = false
+hide_root = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 2
+
+[node name="Create" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Create"
+
+[node name="Cancel" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[connection signal="gui_input" from="Search" to="." method="_on_search_gui_input"]
+[connection signal="text_changed" from="Search" to="." method="_on_search_text_changed"]
+[connection signal="item_activated" from="Tree" to="." method="_on_tree_item_activated"]
+[connection signal="item_selected" from="Tree" to="." method="_on_tree_item_selected"]
+[connection signal="pressed" from="HBoxContainer/Create" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="HBoxContainer/Cancel" to="." method="request_exit"]
