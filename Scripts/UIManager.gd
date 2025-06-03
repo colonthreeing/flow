@@ -20,9 +20,8 @@ func _gui_input(event: InputEvent) -> void:
 				accept_event()
 	elif event is InputEventMouseMotion:
 		if moving_nodes:
-			for node : GraphNode in graph.selected_nodes:
-				if graph.selected_nodes[node]:
-					node.position_offset += event.relative / graph.zoom
+			for node : GraphNode in graph.get_selected_nodes():
+				node.position_offset += event.relative / graph.zoom
 
 func _shortcut_input(event: InputEvent) -> void:
 	var focused = get_viewport().gui_get_focus_owner()
@@ -31,10 +30,10 @@ func _shortcut_input(event: InputEvent) -> void:
 			# print("Requested new node...")
 			show_new_node_menu()
 			accept_event()
-		elif event.is_action_pressed("SortNodes"):
+		elif event.is_action_pressed("SortNodes") and len(graph.get_selected_nodes()) > 0:
 			graph.arrange_nodes()
 			accept_event()
-		elif event.is_action_pressed("MoveNode") and len(graph.selected_nodes) > 0:
+		elif event.is_action_pressed("MoveNode") and len(graph.get_selected_nodes()) > 0:
 			moving_nodes = not moving_nodes
 			print("Moving!")
 			accept_event()

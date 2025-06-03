@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b83b8mgf7l12w"]
+[gd_scene load_steps=7 format=3 uid="uid://b83b8mgf7l12w"]
 
 [ext_resource type="Script" uid="uid://ctra772arulls" path="res://Scripts/UIManager.gd" id="1_mmvkr"]
 [ext_resource type="Theme" uid="uid://chxsbitmb5lsf" path="res://Themes/generated/dark_theme.tres" id="1_qxndv"]
@@ -6,23 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://t8iwlnfi1qwa" path="res://GraphNodeTypes/Nodes/DisplayChangeSprite.tscn" id="3_qxndv"]
 [ext_resource type="PackedScene" uid="uid://cehglqie0uvvo" path="res://Nodes/RightClickMenu.tscn" id="3_uc1n5"]
 [ext_resource type="PackedScene" uid="uid://dv8roktwrsal5" path="res://Nodes/AddNewNodeMenu.tscn" id="4_vwjav"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwjav"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.171361, 0.171362, 0.171361, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.8, 0.8, 0.8, 0.466667)
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -74,17 +57,16 @@ auto_translate_mode = 1
 title = "Add New Node"
 initial_position = 2
 size = Vector2i(524, 558)
-theme_override_styles/panel = SubResource("StyleBoxFlat_vwjav")
 
 [node name="NewNodeMenu" parent="AddNewNodeMenuPopup" instance=ExtResource("4_vwjav")]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 514.0
-offset_bottom = 548.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 519.0
+offset_bottom = 553.0
 grow_horizontal = 2
 grow_vertical = 2
 

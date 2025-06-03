@@ -169,3 +169,7 @@ func define_theme():
 		panel = menu,
 		hover = button_hover_style
 	})
+	
+	define_style("PopupPanel", {
+		panel = menu
+	})
