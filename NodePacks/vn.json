@@ -1,0 +1,25 @@
+{
+    "meta": {
+        "name": "Visual Novel Pack",
+        "author": "julie"
+    },
+    "nodes": [
+        {
+            "type": "category",
+            "name": "amogussy",
+            "tooltip": "hello!!",
+            "content": [
+                {
+                    "type": "node",
+                    "name": "nya",
+                    "tooltip": "hewwo"
+                }
+            ]
+        },
+        {
+            "type": "node",
+            "name": "uwuer",
+            "tooltip": ":3"
+        }
+    ]
+}

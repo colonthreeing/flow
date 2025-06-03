@@ -1,7 +1,6 @@
 meta:
   name: Visual Novel Pack
   author: julie
-# here's hoping
 nodes:
   - type: category
     name: amogussy
@@ -10,7 +9,7 @@ nodes:
       - type: node
         name: nya
         tooltip: hewwo
-        
+        scene: res://GraphNodeTypes/Nodes/DialogueTalk.tscn
   - type: node
     name: uwuer
     tooltip: :3

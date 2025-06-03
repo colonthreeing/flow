@@ -62,3 +62,11 @@ func remove_connections_to_node(node):
 func _on_copy_nodes_request() -> void:
 	for node in selected_nodes:
 		pass
+
+func get_selected_nodes() -> Array[GraphElement]:
+	var r : Array[GraphElement] = []
+	for node : GraphNode in selected_nodes:
+		if selected_nodes[node]:
+			r.append(node)
+	
+	return r

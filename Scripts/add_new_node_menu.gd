@@ -97,56 +97,60 @@ var nodes_old = [
 
 var leaves : Array[TreeItem] = []
 
-func construct_tree(root: TreeItem, data: Array[TreeNode]) -> void:
-	for node : TreeNode in data:
-		var item : TreeItem = root.create_child()
-		item.set_text(0, node.node_name)
-		item.set_metadata(0, node)
-		item.set_tooltip_text(0, node.description)
-		
-		if node is TreeNodeCategory:
-			construct_tree(item, node.children)
-		elif node is TreeNodeResource:
-			leaves.append(item)
+func construct_tree(root: TreeItem, data: Array) -> void:
+	#for node : TreeNode in data:
+		#var item : TreeItem = root.create_child()
+		#item.set_text(0, node.node_name)
+		#item.set_metadata(0, node)
+		#item.set_tooltip_text(0, node.description)
+		#
+		#if node is TreeNodeCategory:
+			#construct_tree(item, node.children)
+		#elif node is TreeNodeResource:
+			#leaves.append(item)
 
-#	for node : Dictionary in data:
-#		var item : TreeItem = root.create_child()
-#		item.set_text(0, node.name)
-#		item.set_metadata(0, node)
-#		if node.has("tooltip"):
-#			item.set_tooltip_text(0, node.tooltip)
-#		if node.type == "category":
-#			construct_tree(item, node.content)
-#		elif node.type == "node":
-#			leaves.append(item)
-#		else:
-#			push_error("Bad type supplied to construct_tree: ", node.type)
+	for node : Dictionary in data:
+		var item : TreeItem = root.create_child()
+		item.set_text(0, node.name)
+		item.set_metadata(0, node)
+		if node.has("tooltip"):
+			item.set_tooltip_text(0, node.tooltip)
+		if node.type == "category":
+			construct_tree(item, node.content)
+		elif node.type == "node":
+			leaves.append(item)
+		else:
+			push_error("Bad type supplied to construct_tree: ", node.type)
 
 
 func _ready() -> void:
-	var root = tree.create_item()
-	root.set_metadata(0, TreeNode.new())
+	var yml = YAML.load_file("res://NodePacks/visualnovel.yml")
+	print(yml.get_data())
 	
-	construct_tree(root, nodes.pack_contents)
+	var root = tree.create_item()
+	root.set_metadata(0, {
+		"type": "category",
+		"name": "",
+		"content": yml.get_data().nodes
+	})
+	
+	construct_tree(root, yml.get_data().nodes)
 	
 	search.grab_focus()
 	find_nth_leaf_item(0).select(0)
 	
-	var yml = YAML.load_file("res://NodePacks/visualnovel.yml")
-	
-	print(yml.get_data())
 
 
 func path_contains(text: String, toplevel: TreeItem) -> bool:
 	if toplevel.get_metadata(0):
 		# print("%s contains %s: %s" % [toplevel.get_metadata(0).name.to_lower(), text, toplevel.get_metadata(0).name.to_lower().contains(text)])
-		if toplevel.get_metadata(0).node_name.to_lower().contains(text):
+		if toplevel.get_metadata(0).name.to_lower().contains(text):
 			return true
 	# print("No meta found for top level! ", toplevel.get_text(0))
 	
 	for child : TreeItem in toplevel.get_children():
 		# print("%s : %s" % [child.get_metadata(0).name, child.get_metadata(0).name.to_lower().contains(text)])
-		if child.get_metadata(0).node_name.to_lower().contains(text):
+		if child.get_metadata(0).name.to_lower().contains(text):
 			# print("Returning true!")
 			return true
 		if child.get_metadata(0) is TreeNodeCategory:
@@ -159,7 +163,7 @@ func path_contains(text: String, toplevel: TreeItem) -> bool:
 func search_tree(text: String, toplevel: TreeItem = tree.get_root()) -> void:
 	var should_be_visible : bool = false
 	
-	if toplevel.get_metadata(0).node_name.to_lower().contains(text):
+	if toplevel.get_metadata(0).name.to_lower().contains(text):
 		should_be_visible = true
 		# return toplevel.get_metadata(0).name.to_lower().contains(text)
 	
@@ -168,7 +172,7 @@ func search_tree(text: String, toplevel: TreeItem = tree.get_root()) -> void:
 			should_be_visible = true
 
 		search_tree(text, child)
-	
+		
 	toplevel.visible = should_be_visible
 
 func show_tree() -> void:
