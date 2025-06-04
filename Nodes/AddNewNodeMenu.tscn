@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dv8roktwrsal5"]
+[gd_scene load_steps=2 format=3 uid="uid://dv8roktwrsal5"]
 
 [ext_resource type="Script" uid="uid://ciq2ni0k61noj" path="res://Scripts/add_new_node_menu.gd" id="1_c6g5r"]
-[ext_resource type="Theme" uid="uid://chxsbitmb5lsf" path="res://Themes/generated/dark_theme.tres" id="1_dwutu"]
-[ext_resource type="Resource" uid="uid://b5ltmlr85hmck" path="res://NodePacks/VisualNovelPack.tres" id="2_77cua"]
 
 [node name="NewNodeMenu" type="VBoxContainer"]
 anchors_preset = -1
@@ -12,9 +10,7 @@ offset_left = 4.0
 offset_top = 4.0
 offset_right = 0.447937
 offset_bottom = -0.0400391
-theme = ExtResource("1_dwutu")
 script = ExtResource("1_c6g5r")
-nodes = ExtResource("2_77cua")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 2

@@ -4,8 +4,9 @@ extends ProgrammaticTheme
 const UPDATE_ON_SAVE = true
 
 #region Color Defs
+# Colors are from Catppuccin unless otherwise specified
 var text_color = Color("#cdd6f4")
-
+var text_color_hover = Color("#eff1f7") # My own color
 var background_color = Color("#11111b")
 var background_selected_color = Color("#181825")
 var background_pressed_color = Color("#1e1e2e")
@@ -24,16 +25,25 @@ var general_border_width = 2
 var margins = 5
 #endregion
 
-#region Texture Values
-var circle = load("res://Themes/images/circle.svg")
-#endregion
-
 func setup_dark_theme():
 	set_save_path("res://Themes/generated/dark_theme.tres")
 
 func setup_light_theme():
-	set_save_path("res://Themes/generated/light_theme.tres")
+	text_color = Color("#4c4f69")
+	text_color_hover = Color("37394f")
+	
+	background_color = Color("#dce0e8") # Crust
+	background_selected_color = Color("#e6e9ef") # Mantle
+	background_pressed_color = Color("#eff1f5") # Base
+	background_disabled_color = Color("#dce0e8") # Crust again (??)
 
+	surface_color_0 = Color("#ccd0da")
+	surface_color_1 = Color("#bcc0cc")
+	surface_color_2 = Color("#acb0be")
+
+	accent_color = Color("#7287fd")
+	
+	set_save_path("res://Themes/generated/light_theme.tres")
 
 func define_theme():
 	var general_background_style = stylebox_flat({
@@ -55,7 +65,7 @@ func define_theme():
 	
 	var general_focus_style = inherit(panel_style, {
 		bg_color = background_selected_color,
-		# border_color = accent_color,
+		border_color = accent_color,
 		# border_ = border_width(general_border_width)
 	})
 	
@@ -89,7 +99,7 @@ func define_theme():
 	})
 	
 	var button_normal_style = inherit(panel_style, {
-		content_margin_ = content_margins(margins)
+		content_margin_ = content_margins(margins),
 	})
 	var button_hover_style = merge(button_normal_style, general_hover_style)
 	var button_focus_style = merge(button_normal_style, general_focus_style)
@@ -102,7 +112,15 @@ func define_theme():
 		hover = button_hover_style,
 		focus = button_focus_style,
 		pressed = button_pressed_style,
-		disabled = inherit(button_normal_style, general_disabled_style)
+		disabled = inherit(button_normal_style, general_disabled_style),
+		font_color = text_color,
+		
+		# color gore
+		font_pressed_color = text_color,
+		font_hover_color = text_color_hover,
+		font_focus_color = text_color_hover,
+		font_hover_pressed_color = text_color_hover,
+		font_disabled_color = text_color
 	})
 	
 	define_style("GraphEdit", {
@@ -111,11 +129,19 @@ func define_theme():
 		
 		grid_major = surface_color_1,
 		grid_minor = surface_color_0,
+		
+		connection_rim_color = background_pressed_color,
+		connection_valid_target_tint_color = Color(1.0, 1.0, 1.0, 0.0), #  - background_color,
+		activity = Color(1.0, 1.0, 1.0, 2.0) - background_color,
+		
+		selection_fill = Color(1.0, 1.0, 1.0, 1.4) - background_color,
+		selection_stroke = Color(1.0, 1.0, 1.0, 1.8) - background_color
 	})
 	
 	# Shitty defs but I think they work well enough
+	# Not like it needs to run anywhere *near* real time so optimization isn't a problem
 	define_style("GraphNode", {
-		# port = circle
+		port = load("res://Themes/images/GuiGraphNodePort.svg"),
 		titlebar = inherit(panel_style, {corner_ = corner_radius(corner_rad, corner_rad, 0, 0)}),
 		titlebar_selected = inherit(button_focus_style, {
 			corner_ = corner_radius(corner_rad, corner_rad, 0, 0),
@@ -144,7 +170,13 @@ func define_theme():
 			border_ = border_width(general_border_width, general_border_width, general_border_width, general_border_width),
 		}),
 		normal = button_normal_style,
-		read_only = general_disabled_style
+		read_only = general_disabled_style,
+		
+		font_color = text_color,
+		font_placeholder_color = text_color * Color(1.0,1.0,1.0,0.6),
+		font_selected_color = text_color_hover,
+		
+		caret_color = text_color
 	}
 	
 	define_style("LineEdit", text_edit_style)
@@ -153,6 +185,10 @@ func define_theme():
 	
 	define_style("Tree", {
 		panel = panel_style,
+		
+		font_color = text_color,
+		font_placeholder_color = text_color * Color(1.0,1.0,1.0,0.6),
+		font_selected_color = text_color_hover,
 		
 		button_hover = button_hover_style,
 		button_pressed = button_pressed_style,
@@ -167,7 +203,12 @@ func define_theme():
 	
 	define_style("PopupMenu", {
 		panel = menu,
-		hover = button_hover_style
+		hover = button_hover_style,
+		
+		font_color = text_color,
+		font_placeholder_color = text_color * Color(1.0,1.0,1.0,0.6),
+		font_selected_color = text_color_hover,
+		font_hover_color = text_color,
 	})
 	
 	define_style("PopupPanel", {

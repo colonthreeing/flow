@@ -1,10 +1,5 @@
 extends VBoxContainer
 
-@export var nodes : TreePack
-
-# @export_file("*.yml", "*.yaml") var node_pack_yaml
-
-
 @onready var tree : Tree = %Tree
 @onready var search : LineEdit = %Search
 
@@ -200,7 +195,7 @@ func _on_tree_item_activated() -> void:
 	var n = tree.get_selected().get_metadata(0)
 	if n:
 		emit_signal("requested_new_node", get_current_path())
-	request_exit()
+		request_exit()
 
 func request_exit() -> void:
 	emit_signal("requested_close")
