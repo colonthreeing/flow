@@ -14,17 +14,17 @@ func add_node(pos: Vector2, title: String):
 	node.position_offset = pos
 	node.title = title
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		pass
-#		if event.keycode == KEY_A and event.pressed:
-#			add_node(get_viewport().get_mouse_position() + scroll_offset, "New Node")
-#			accept_event()
-	elif event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT and not event.pressed:
-			emit_signal("right_clicked")
-		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			emit_signal("left_clicked")
+#func _input(event: InputEvent) -> void:
+	#if event is InputEventKey:
+		#pass
+##		if event.keycode == KEY_A and event.pressed:
+##			add_node(get_viewport().get_mouse_position() + scroll_offset, "New Node")
+##			accept_event()
+	#elif event is InputEventMouseButton:
+		#if event.button_index == MOUSE_BUTTON_RIGHT and not event.pressed:
+			#emit_signal("right_clicked")
+		#elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			#emit_signal("left_clicked")
 
 #func _unhandled_input(event: InputEvent) -> void:
 	#if event is InputEventMouseButton:

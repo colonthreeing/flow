@@ -38,9 +38,9 @@ func _shortcut_input(event: InputEvent) -> void:
 			print("Moving!")
 			accept_event()
 
-func show_rightclick_menu():
+func show_rightclick_menu(pos: Vector2):
 	rightMenu.visible = true
-	rightMenu.position = get_viewport().get_mouse_position()
+	rightMenu.position = pos
 
 func close_rightclick_menu():
 	rightMenu.visible = false
