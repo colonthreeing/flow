@@ -176,12 +176,21 @@ func define_theme():
 		font_placeholder_color = text_color * Color(1.0,1.0,1.0,0.6),
 		font_selected_color = text_color_hover,
 		
+		# font_size = 12,
+		
 		caret_color = text_color
 	}
 	
 	define_style("LineEdit", text_edit_style)
+	define_variant_style("SmallText", "LineEdit", merge(text_edit_style, {
+		font_size = 12
+	}))
 	
 	define_style("TextEdit", text_edit_style)
+	define_variant_style("SmallText", "TextEdit", merge(text_edit_style, {
+		font_size = 12
+	}))
+	
 	
 	define_style("Tree", {
 		panel = panel_style,

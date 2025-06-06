@@ -1,15 +1,39 @@
 meta:
   name: Visual Novel Pack
   author: julie
+
+vars:
+  - name: authors
+    value:
+      type: enum
+      default:
+        - Author 1
+        - Author 2
+
+enums:
+  - name: interpolation
+    values:
+    - EASE_IN
+    - EASE_OUT
+    - EASE_IN_OUT
+    - LINEAR
+
 nodes:
   - type: category
     name: amogussy
     tooltip: hello!!
     content:
       - type: node
-        name: nya
-        tooltip: hewwo
-        scene: res://GraphNodeTypes/Nodes/DialogueTalk.tscn
+        name: Talk
+        tooltip: Makes the given character say something.
+        components:
+          - name: Text
+            type: TextEdit
+            placeholder: Add dialogue here...
+          - name: Author
+            type: Dropdown
+            enum: vars/authors
+
   - type: node
     name: uwuer
     tooltip: :3

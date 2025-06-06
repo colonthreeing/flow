@@ -32,12 +32,12 @@ script = ExtResource("2_vwjav")
 
 [node name="DisplayChangeSprite" parent="GraphEdit" instance=ExtResource("3_qxndv")]
 layout_mode = 0
-offset_left = 72.0
-offset_top = 119.0
-offset_right = 364.0
-offset_bottom = 508.0
+offset_left = 80.0
+offset_top = 120.0
+offset_right = 372.0
+offset_bottom = 509.0
 mouse_filter = 1
-position_offset = Vector2(72, 119)
+position_offset = Vector2(80, 120)
 slot/0/right_color = Color(1, 1, 1, 1)
 
 [node name="RightClickMenu" parent="." instance=ExtResource("3_uc1n5")]
@@ -66,8 +66,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
+offset_right = 519.0
+offset_bottom = 553.0
 grow_horizontal = 2
 grow_vertical = 2
 
