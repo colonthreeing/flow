@@ -27,12 +27,14 @@ nodes:
         name: Talk
         tooltip: Makes the given character say something.
         components:
-          - name: Text
+          - name: Dialogue
             type: TextEdit
             placeholder: Add dialogue here...
           - name: Author
             type: Dropdown
             enum: vars/authors
+          - name: Test
+            type: ImageInput
 
   - type: node
     name: uwuer

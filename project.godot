@@ -33,6 +33,7 @@ config/icon="res://icon.svg"
 
 FileSingleton="*res://Scripts/FileSingleton.gd"
 NodePackSingleton="*res://Scripts/NodePackSingleton.gd"
+ThemeSingleton="*res://Scripts/ThemeSingleton.gd"
 
 [display]
 
