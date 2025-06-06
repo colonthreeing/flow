@@ -6,7 +6,7 @@ extends VBoxContainer
 var search_line : int = 0
 
 signal requested_close
-signal requested_new_node(filepath : String)
+signal requested_new_node(node_data : Dictionary)
 
 
 #TODO: Add this to `nodes` and update code
@@ -119,17 +119,14 @@ func construct_tree(root: TreeItem, data: Array) -> void:
 
 
 func _ready() -> void:
-	var yml = YAML.load_file("res://NodePacks/visualnovel.yml")
-	print(yml.get_data())
-	
 	var root = tree.create_item()
 	root.set_metadata(0, {
 		"type": "category",
 		"name": "",
-		"content": yml.get_data().nodes
+		"content": NodePackSingleton.data
 	})
 	
-	construct_tree(root, yml.get_data().nodes)
+	construct_tree(root, NodePackSingleton.data.nodes)
 	
 	search.grab_focus()
 	find_nth_leaf_item(0).select(0)
@@ -177,9 +174,6 @@ func appear():
 	search.grab_focus()
 	search.select_all()
 
-func get_current_path() -> String:
-	return tree.get_selected().get_metadata(0).scene
-
 func find_nth_leaf_item(n: int) -> TreeItem:
 	var visible_leaves : Array[TreeItem] = []
 	for leaf : TreeItem in leaves:
@@ -194,7 +188,7 @@ func find_nth_leaf_item(n: int) -> TreeItem:
 func _on_tree_item_activated() -> void:
 	var n = tree.get_selected().get_metadata(0)
 	if n:
-		emit_signal("requested_new_node", get_current_path())
+		emit_signal("requested_new_node", n)
 		request_exit()
 
 func request_exit() -> void:

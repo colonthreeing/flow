@@ -63,11 +63,9 @@ func show_new_node_menu():
 func close_new_mode_menu():
 	newNodePopup.hide()
 
-func _on_requested_new_node(filepath: String) -> void:
-	var ps : PackedScene = load(filepath)
+func _on_requested_new_node(data : Dictionary) -> void:
+	var new_node : GraphNode = GraphNodeMaker.make_graph_node(data)
 	
-	var new_node : GraphNode = ps.instantiate()
-	# random vec2 is initial window size
 	new_node.position_offset = requested_node_position - Vector2(new_node.size.x / 2.0, 10.0)
 	graph.add_child(new_node)
 
