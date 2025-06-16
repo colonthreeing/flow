@@ -8,3 +8,11 @@ func _ready() -> void:
 
 func make_project(project_name: String) -> void:
 	pass
+
+func save_project(graph: GraphEdit) -> void:
+	var yml = YAML.new()
+	
+	
+
+func export_project(graph: GraphEdit) -> void:
+	pass

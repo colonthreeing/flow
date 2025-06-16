@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b83b8mgf7l12w"]
+[gd_scene load_steps=6 format=3 uid="uid://b83b8mgf7l12w"]
 
 [ext_resource type="Script" uid="uid://ctra772arulls" path="res://Scripts/UIManager.gd" id="1_mmvkr"]
 [ext_resource type="Theme" uid="uid://chxsbitmb5lsf" path="res://Themes/generated/dark_theme.tres" id="1_qxndv"]
 [ext_resource type="Script" uid="uid://dkomkmenms0ci" path="res://Scripts/GraphManager.gd" id="2_vwjav"]
-[ext_resource type="PackedScene" uid="uid://t8iwlnfi1qwa" path="res://GraphNodeTypes/Nodes/DisplayChangeSprite.tscn" id="3_qxndv"]
 [ext_resource type="PackedScene" uid="uid://cehglqie0uvvo" path="res://Nodes/RightClickMenu.tscn" id="3_uc1n5"]
 [ext_resource type="PackedScene" uid="uid://dv8roktwrsal5" path="res://Nodes/AddNewNodeMenu.tscn" id="4_vwjav"]
 
@@ -29,16 +28,6 @@ mouse_filter = 1
 right_disconnects = true
 minimap_opacity = 1.0
 script = ExtResource("2_vwjav")
-
-[node name="DisplayChangeSprite" parent="GraphEdit" instance=ExtResource("3_qxndv")]
-layout_mode = 0
-offset_left = 80.0
-offset_top = 120.0
-offset_right = 380.0
-offset_bottom = 751.0
-mouse_filter = 1
-position_offset = Vector2(80, 120)
-slot/0/right_color = Color(1, 1, 1, 1)
 
 [node name="RightClickMenu" parent="." instance=ExtResource("3_uc1n5")]
 unique_name_in_owner = true

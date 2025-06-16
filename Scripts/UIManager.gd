@@ -18,6 +18,12 @@ func _gui_input(event: InputEvent) -> void:
 				moving_nodes = false
 			else:
 				accept_event()
+		elif event.button_index == MOUSE_BUTTON_MIDDLE and event.pressed:
+			var sf = Savefile.new(get_graph_nodes())
+			
+			print("Saving data!")
+			sf.save("res://savefile.yml")
+			
 	elif event is InputEventMouseMotion:
 		if moving_nodes:
 			for node : GraphNode in graph.get_selected_nodes():
@@ -37,6 +43,14 @@ func _shortcut_input(event: InputEvent) -> void:
 			moving_nodes = not moving_nodes
 			print("Moving!")
 			accept_event()
+
+func get_graph_nodes() -> Array[DynamicGraphNode]:
+	var r : Array[DynamicGraphNode] = []
+	for node in graph.get_children():
+		if node is DynamicGraphNode:
+			r.append(node)
+	
+	return r
 
 func show_rightclick_menu(pos: Vector2):
 	rightMenu.visible = true

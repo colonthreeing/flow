@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://t8iwlnfi1qwa"]
 
 [sub_resource type="GDScript" id="GDScript_hsxkw"]
-script/source = "extends GraphNode
+script/source = "extends DynamicGraphNode
 
 
 func _on_native_file_dialog_file_selected(path: String) -> void:
