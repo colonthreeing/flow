@@ -18,11 +18,11 @@ func _gui_input(event: InputEvent) -> void:
 				moving_nodes = false
 			else:
 				accept_event()
-		elif event.button_index == MOUSE_BUTTON_MIDDLE and event.pressed:
-			var sf = Savefile.new(get_graph_nodes())
-			
-			print("Saving data!")
-			sf.save("res://savefile.yml")
+		#elif event.button_index == MOUSE_BUTTON_MIDDLE and event.pressed:
+			#var sf = Savefile.new(get_graph_nodes())
+			#
+			#print("Saving data!")
+			#sf.save("res://savefile.yml")
 			
 	elif event is InputEventMouseMotion:
 		if moving_nodes:
