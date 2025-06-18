@@ -1,6 +1,7 @@
 class_name DynamicGraphNode extends GraphNode
 
 var bound_data = {}
+var node_type = ""
 
 func _init() -> void:
 	pass
@@ -46,11 +47,10 @@ func _draw_port(slot_index: int, position: Vector2i, left: bool, color: Color) -
 
 func serialize() -> Dictionary:
 	return {
+		"type": node_type,
 		"position": position_offset,
 		"data": evaluate_bound(),
 	}
 
 static func deserialize(data: Dictionary) -> DynamicGraphNode:
-	return DynamicGraphNode.new(
-		
-	)
+	return DynamicGraphNode.new()

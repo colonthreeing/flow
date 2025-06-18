@@ -2,17 +2,31 @@ extends Node
 
 var data = {}
 
+var leaves = {}
+
 var vars = {
 	"authors": {
 		"type": "enum",
-		"value": ["Vagabond", "Colon", "Three"],
+		"value": ["wowzes", "sugoi", "amazing"],
 	}
 }
 
 var enums = {}
 
+func find_leaves(arr: Array):
+	for dict in arr:
+		if dict.get("type", "") == "node":
+			leaves[dict.name] = dict
+		else:
+			if dict.has("content"):
+				find_leaves(dict.get("content", []))
+
 func _init() -> void:
 	data = YAML.load_file("res://NodePacks/visualnovel.yml").get_data()
+	
+	find_leaves(data.get("nodes", []))
+	
+#	print(YAML.stringify(leaves).get_data())
 
 func get_value_from_string(str: String):
 	var s = str.split("/")

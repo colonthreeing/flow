@@ -1,0 +1,8 @@
+!Savefile
+nodes:
+  - !DynamicGraphNode
+    type: Talk
+    position: !Vector2 {x: -260,y: -120}
+    data:
+      Dialogue: 
+      Author: 0

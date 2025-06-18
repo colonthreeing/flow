@@ -159,8 +159,10 @@ static func generate_ui_item(comp: Dictionary, g, allow_binding = true):
 				pass
 			_:
 				print("Unknown type passed: %s" % comp.type)
+	
 
 static func generate_ui(data: Dictionary, g, allow_binding = true):
+	g.node_type = data.name
 	for comp in data.components:
 		g.add_child(generate_ui_item(comp, g, true))
 
