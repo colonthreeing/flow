@@ -33,6 +33,8 @@ nodes:
           - name: Author
             type: Dropdown
             enum: vars/authors
+          - name: TestyTest
+            type: ImageInput
 
   - type: node
     name: uwuer

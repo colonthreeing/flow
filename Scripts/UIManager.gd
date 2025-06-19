@@ -19,10 +19,6 @@ func _gui_input(event: InputEvent) -> void:
 			else:
 				accept_event()
 		#elif event.button_index == MOUSE_BUTTON_MIDDLE and event.pressed:
-			#var sf = Savefile.new(get_graph_nodes())
-			#
-			#print("Saving data!")
-			#sf.save("res://savefile.yml")
 			
 	elif event is InputEventMouseMotion:
 		if moving_nodes:
@@ -36,13 +32,24 @@ func _shortcut_input(event: InputEvent) -> void:
 			# print("Requested new node...")
 			show_new_node_menu()
 			accept_event()
+			return
 		elif event.is_action_pressed("SortNodes") and len(graph.get_selected_nodes()) > 0:
 			graph.arrange_nodes()
 			accept_event()
+			return
 		elif event.is_action_pressed("MoveNode") and len(graph.get_selected_nodes()) > 0:
 			moving_nodes = not moving_nodes
 			print("Moving!")
 			accept_event()
+			return
+	
+	if event.is_action_pressed("SaveFile"):
+		var sf = Savefile.new(get_graph_nodes())
+		
+		print("Saving data!")
+		sf.save("res://savefile.yml")
+		accept_event()
+		return
 
 func get_graph_nodes() -> Array[DynamicGraphNode]:
 	var r : Array[DynamicGraphNode] = []
@@ -85,3 +92,8 @@ func _on_requested_new_node(data : Dictionary) -> void:
 
 func _ready() -> void:
 	graph.grab_focus()
+	
+	var sf: Savefile = YAML.try_load_file("res://savefile.yml")
+	
+	for node in sf.nodes:
+		graph.add_child(node)

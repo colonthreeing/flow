@@ -1,8 +1,8 @@
 class_name Savefile extends Resource
 
-var nodes : Array[DynamicGraphNode]
+var nodes : Array
 
-func _init(p_nodes : Array[DynamicGraphNode] = []):
+func _init(p_nodes : Array = []):
 	nodes = p_nodes
 
 func serialize() -> Dictionary:
@@ -10,7 +10,10 @@ func serialize() -> Dictionary:
 		"nodes": nodes
 	}
 
-static func deserialize(data: Dictionary) -> Savefile:
+static func deserialize(data):
+	if typeof(data) != TYPE_DICTIONARY:
+		return YAMLResult.error("Item requires a dictionary")
+	
 	return Savefile.new(
 		data.get("nodes", [])
 	)

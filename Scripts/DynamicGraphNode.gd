@@ -49,8 +49,9 @@ func serialize() -> Dictionary:
 	return {
 		"type": node_type,
 		"position": position_offset,
+		"size": size,
 		"data": evaluate_bound(),
 	}
 
 static func deserialize(data: Dictionary) -> DynamicGraphNode:
-	return DynamicGraphNode.new()
+	return GraphNodeMaker.load_graph_node(data)

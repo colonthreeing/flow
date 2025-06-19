@@ -1,6 +1,9 @@
 class_name GraphNodeMaker extends RefCounted
 
-static func generate_ui_item(comp: Dictionary, g, allow_binding = true):
+static func coalesce(a, b):
+	return a if a else b
+
+static func generate_ui_item(comp: Dictionary, g, node_data = {}, allow_binding = true):
 	match comp.type:
 			#! FUTURE REFACTOR: Use scenes instead of defining all through code
 			"TextEdit":
@@ -18,6 +21,7 @@ static func generate_ui_item(comp: Dictionary, g, allow_binding = true):
 				te.theme_type_variation = "SmallText"
 				
 				if allow_binding: g.bind_value(comp.name, te, "text")
+				if node_data.has(comp.name): te.text = coalesce(node_data.get(comp.name), "")
 				return te
 				
 				#te.text_changed.connect(func ():
@@ -32,7 +36,10 @@ static func generate_ui_item(comp: Dictionary, g, allow_binding = true):
 				le.theme_type_variation = "SmallText"
 				
 				if allow_binding: g.bind_value(comp.name, le, "text")
+				if node_data.has(comp.name):
+					le.text = coalesce(node_data.get(comp.name), "")
 				return le
+
 			"FileInput":
 				var file_edit = NativeFileDialog.new()
 				
@@ -72,6 +79,8 @@ static func generate_ui_item(comp: Dictionary, g, allow_binding = true):
 				
 				
 				if allow_binding: g.bind_value(comp.name, le, "text")
+				if node_data.has(comp.name):
+					le.text = coalesce(node_data.get(comp.name), "")
 				return vbc
 				
 			"ImageInput":
@@ -133,6 +142,8 @@ static func generate_ui_item(comp: Dictionary, g, allow_binding = true):
 				
 				
 				if allow_binding: g.bind_value(comp.name, le, "text")
+				if node_data.has(comp.name):
+					file_edit.emit_signal("file_selected", coalesce(node_data.get(comp.name), ""))
 				return vbc
 			"Dropdown":
 				var dd = OptionButton.new()
@@ -141,39 +152,41 @@ static func generate_ui_item(comp: Dictionary, g, allow_binding = true):
 					dd.add_item(val)
 				
 				if allow_binding: g.bind_value(comp.name, dd, "selected")
+				if node_data.has(comp.name):
+					dd.selected = coalesce(node_data.get(comp.name), 0)
 				return dd
-			"Container":
-				var vbox = VBoxContainer.new()
-				
-				if comp.has("children"):
-					for val in comp.children:
-						vbox.add_child(generate_ui_item(val, g, true))
-				
-				return vbox
-			"Creator":
-				"""
-				So:
-					- Need "children" to be individually made and attached directly to `g`
-					  so that they can have their own slot
-				"""
-				pass
+			#"Container":
+				#var vbox = VBoxContainer.new()
+				#
+				#if comp.has("children"):
+					#for val in comp.children:
+						#vbox.add_child(generate_ui_item(val, g, true))
+				#
+				#return vbox
+			#"Creator":
+				#"""
+				#So:
+					#- Need "children" to be individually made and attached directly to `g`
+					  #so that they can have their own slot
+				#"""
+				#pass
 			_:
-				print("Unknown type passed: %s" % comp.type)
+				push_error("Unknown type passed: %s" % comp.type)
 	
-
-static func generate_ui(data: Dictionary, g, allow_binding = true):
+# Doesn't really need to be a function but fuck you
+static func generate_ui(data: Dictionary, g, node_data = {}, allow_binding = true):
 	g.node_type = data.name
 	for comp in data.components:
-		g.add_child(generate_ui_item(comp, g, true))
+		g.add_child(generate_ui_item(comp, g, node_data, true))
 
-static func make_graph_node(data : Dictionary) -> GraphNode:
+static func make_graph_node(data : Dictionary, node_data = {}) -> DynamicGraphNode:
 	var g = DynamicGraphNode.new() # don't remember why I named this `g`. going to refactor in VSCode later?
 	
 	if data.has("name"):
 		g.title = data.name
 	
 	if data.has("components"):
-		generate_ui(data, g)
+		generate_ui(data, g, node_data)
 	
 	var btn = Button.new()
 	
@@ -186,3 +199,13 @@ static func make_graph_node(data : Dictionary) -> GraphNode:
 	g.add_child(btn)
 	
 	return g
+
+static func load_graph_node(data : Dictionary) -> DynamicGraphNode:
+	var creation_data : Dictionary = NodePackSingleton.leaves[data.get("type", "")]
+	
+	var new_node = make_graph_node(creation_data, data.get("data", {}))
+	
+	new_node.position_offset = data.get("position", Vector2(0,0))
+	new_node.call_deferred("set_size", data.get("size", Vector2(180, 150))) # Doesn't work unless deferred
+
+	return new_node
