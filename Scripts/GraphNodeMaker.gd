@@ -179,14 +179,14 @@ static func generate_ui(data: Dictionary, g, node_data = {}, allow_binding = tru
 	for comp in data.components:
 		g.add_child(generate_ui_item(comp, g, node_data, true))
 
-static func make_graph_node(data : Dictionary, node_data = {}) -> DynamicGraphNode:
-	var g = DynamicGraphNode.new() # don't remember why I named this `g`. going to refactor in VSCode later?
+static func make_graph_node(data : Dictionary, node_data = {}, g : DynamicGraphNode = DynamicGraphNode.new()) -> DynamicGraphNode:
+#	var g = DynamicGraphNode.new() # don't remember why I named this `g`. going to refactor in VSCode later?
 	
 	if data.has("name"):
 		g.title = data.name
 	
 	if data.has("components"):
-		generate_ui(data, g, node_data)
+		generate_ui(data, g, node_data.get("data", {}))
 	
 	var btn = Button.new()
 	
@@ -198,12 +198,18 @@ static func make_graph_node(data : Dictionary, node_data = {}) -> DynamicGraphNo
 	
 	g.add_child(btn)
 	
+	g.set_slot(0, true, 0, Color.WHITE, true, 0, Color.WHITE)
+	
+	if node_data.has("id"):
+		g.name = node_data.get("id")
+	else:
+		g.name = uuid.v4()
 	return g
 
-static func load_graph_node(data : Dictionary) -> DynamicGraphNode:
+static func load_graph_node(node : DynamicGraphNode, data : Dictionary) -> DynamicGraphNode:
 	var creation_data : Dictionary = NodePackSingleton.leaves[data.get("type", "")]
 	
-	var new_node = make_graph_node(creation_data, data.get("data", {}))
+	var new_node = make_graph_node(creation_data, data, node)
 	
 	new_node.position_offset = data.get("position", Vector2(0,0))
 	new_node.call_deferred("set_size", data.get("size", Vector2(180, 150))) # Doesn't work unless deferred

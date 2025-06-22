@@ -187,10 +187,13 @@ func _gui_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 			KEY_MASK_CTRL | KEY_EQUAL, KEY_MASK_CTRL | KEY_KP_ADD:
 				zoom_in()
+				get_viewport().set_input_as_handled()
 			KEY_MASK_CTRL | KEY_MINUS, KEY_MASK_CTRL | KEY_KP_SUBTRACT:
 				zoom_out()
+				get_viewport().set_input_as_handled()
 			KEY_MASK_CTRL | KEY_0, KEY_MASK_CTRL | KEY_KP_0:
 				zoom_reset()
+				get_viewport().set_input_as_handled()
 
 func set_text_and_preserve_state(new_text: String, preserve_state: bool = true) -> void:
 	if preserve_state:

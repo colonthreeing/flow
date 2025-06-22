@@ -2,9 +2,10 @@ class_name DynamicGraphNode extends GraphNode
 
 var bound_data = {}
 var node_type = ""
+var node_data = {}
 
-func _init() -> void:
-	pass
+func _init(p_node_data : Dictionary = {}) -> void:
+	node_data = p_node_data
 
 func _ready() -> void:
 	custom_minimum_size = Vector2(120, 0)
@@ -40,7 +41,7 @@ func _draw_port(slot_index: int, position: Vector2i, left: bool, color: Color) -
 	port_icon->draw(get_canvas_item(), p_pos + icon_offset, p_color);
 	"""
 	
-	draw_circle(position, 7, color, true, -1.0, true)
+	draw_circle(position, 7, color, true, -1.0, false)
 	var stylebox = get_theme_stylebox("panel_selected") if selected else get_theme_stylebox("panel")
 	if stylebox is StyleBoxFlat:
 		draw_circle(position, 8, stylebox.border_color, false, 1.0, true)
@@ -50,8 +51,14 @@ func serialize() -> Dictionary:
 		"type": node_type,
 		"position": position_offset,
 		"size": size,
+		"id": name, # ID and node name is the same
 		"data": evaluate_bound(),
 	}
 
 static func deserialize(data: Dictionary) -> DynamicGraphNode:
-	return GraphNodeMaker.load_graph_node(data)
+	return DynamicGraphNode.new(data)
+
+func build() -> void:
+	for child in get_children():
+		child.queue_free()
+	GraphNodeMaker.load_graph_node(self, node_data)

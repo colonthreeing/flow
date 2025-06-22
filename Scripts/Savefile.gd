@@ -1,13 +1,19 @@
 class_name Savefile extends Resource
 
 var nodes : Array
+var connections : Array
+var vars : Dictionary
 
-func _init(p_nodes : Array = []):
+func _init(p_nodes : Array = [], p_connections : Array = [], p_vars : Dictionary = {}):
 	nodes = p_nodes
+	connections = p_connections
+	vars = p_vars
 
 func serialize() -> Dictionary:
 	return {
-		"nodes": nodes
+		"nodes": nodes,
+		"connections": connections,
+		"vars": vars
 	}
 
 static func deserialize(data):
@@ -15,7 +21,9 @@ static func deserialize(data):
 		return YAMLResult.error("Item requires a dictionary")
 	
 	return Savefile.new(
-		data.get("nodes", [])
+		data.get("nodes", []),
+		data.get("connections", []),
+		data.get("vars", {})
 	)
 
 func save(path: String):

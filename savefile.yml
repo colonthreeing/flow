@@ -2,16 +2,9 @@
 nodes:
   - !DynamicGraphNode
     type: Talk
-    position: !Vector2 {x: 580,y: 520}
-    size: !Vector2 {x: 180,y: 200}
-    data:
-      Dialogue: "Why hello!"
-      Author: 0
-      TestyTest: 
-  - !DynamicGraphNode
-    type: Talk
-    position: !Vector2 {x: 580,y: 760}
-    size: !Vector2 {x: 420,y: 240}
+    position: !Vector2 {x: 1240,y: 180}
+    size: !Vector2 {x: 420,y: 204}
+    id: !StringName 869837c9-dc80-4f93-9fb7-ccd396f0a2f3
     data:
       Dialogue: >-
         Oh, hey!
@@ -19,20 +12,62 @@ nodes:
 
         I'm ok, how about you?
       Author: 0
-      TestyTest: 
   - !DynamicGraphNode
     type: Talk
-    position: !Vector2 {x: 820,y: 260}
-    size: !Vector2 {x: 180,y: 186}
+    position: !Vector2 {x: 960,y: 200}
+    size: !Vector2 {x: 180,y: 160}
+    id: !StringName 6326097c-9ae2-4949-bbc1-a4d8f412f41a
+    data:
+      Dialogue: "Why hello!"
+      Author: 0
+  - !DynamicGraphNode
+    type: Talk
+    position: !Vector2 {x: 680,y: 200}
+    size: !Vector2 {x: 180,y: 160}
+    id: !StringName ff0803f7-f1be-46fb-a6ab-01250f5404b0
     data:
       Dialogue: 
-      Author: 2
-      TestyTest: 
+      Author: 0
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 400,y: 200}
-    size: !Vector2 {x: 180,y: 333}
+    size: !Vector2 {x: 180,y: 160}
+    id: !StringName f1881551-8482-41ab-b485-7d14137f0458
     data:
       Dialogue: "Hello there!"
       Author: 1
-      TestyTest: "/home/julie/sfmgraph-thing/icon.svg"
+  - !DynamicGraphNode
+    type: Talk
+    position: !Vector2 {x: 1760,y: 200}
+    size: !Vector2 {x: 180,y: 160}
+    id: !StringName bf02a43b-fe04-4117-8e52-33d220b23e3c
+    data:
+      Dialogue: ":3 :3 :3 :3"
+      Author: 0
+connections:
+  - from_node: !StringName f1881551-8482-41ab-b485-7d14137f0458
+    from_port: 0
+    to_node: !StringName ff0803f7-f1be-46fb-a6ab-01250f5404b0
+    to_port: 0
+    keep_alive: false
+  - from_node: !StringName ff0803f7-f1be-46fb-a6ab-01250f5404b0
+    from_port: 0
+    to_node: !StringName 6326097c-9ae2-4949-bbc1-a4d8f412f41a
+    to_port: 0
+    keep_alive: false
+  - from_node: !StringName 6326097c-9ae2-4949-bbc1-a4d8f412f41a
+    from_port: 0
+    to_node: !StringName 869837c9-dc80-4f93-9fb7-ccd396f0a2f3
+    to_port: 0
+    keep_alive: false
+  - from_node: !StringName 869837c9-dc80-4f93-9fb7-ccd396f0a2f3
+    from_port: 0
+    to_node: !StringName bf02a43b-fe04-4117-8e52-33d220b23e3c
+    to_port: 0
+    keep_alive: false
+vars:
+  authors:
+    type: enum
+    values:
+      - Wowzers
+      - Sugoi

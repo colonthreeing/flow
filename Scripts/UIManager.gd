@@ -1,3 +1,4 @@
+## Manager script
 extends Control
 
 
@@ -44,7 +45,7 @@ func _shortcut_input(event: InputEvent) -> void:
 			return
 	
 	if event.is_action_pressed("SaveFile"):
-		var sf = Savefile.new(get_graph_nodes())
+		var sf = Savefile.new(get_graph_nodes(), graph.connections, NodePackSingleton.vars)
 		
 		print("Saving data!")
 		sf.save("res://savefile.yml")
@@ -95,5 +96,10 @@ func _ready() -> void:
 	
 	var sf: Savefile = YAML.try_load_file("res://savefile.yml")
 	
-	for node in sf.nodes:
+	NodePackSingleton.vars = sf.vars
+	
+	for node : DynamicGraphNode in sf.nodes:
+		node.build()
 		graph.add_child(node)
+	
+	graph.connections = sf.connections

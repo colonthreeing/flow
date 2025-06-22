@@ -3,10 +3,9 @@ meta:
   author: julie
 
 vars:
-  - name: authors
-    value:
+  - authors:
       type: enum
-      default:
+      values:
         - Author 1
         - Author 2
 
@@ -20,7 +19,7 @@ enums:
 
 nodes:
   - type: category
-    name: amogussy
+    name: Basic
     tooltip: hello!!
     content:
       - type: node
@@ -33,9 +32,3 @@ nodes:
           - name: Author
             type: Dropdown
             enum: vars/authors
-          - name: TestyTest
-            type: ImageInput
-
-  - type: node
-    name: uwuer
-    tooltip: :3

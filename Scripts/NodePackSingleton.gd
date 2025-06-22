@@ -4,12 +4,7 @@ var data = {}
 
 var leaves = {}
 
-var vars = {
-	"authors": {
-		"type": "enum",
-		"value": ["wowzes", "sugoi", "amazing"],
-	}
-}
+var vars = {}
 
 var enums = {}
 
@@ -33,9 +28,9 @@ func get_value_from_string(str: String):
 	
 	match s[0]:
 		"vars":
-			return vars[s[1]].value
+			return vars[s[1]].get("values")
 		"enums":
-			return vars[s[1]].value
+			return vars[s[1]].get("values")
 		_:
 			push_warning("get_value_from_string passed bad value '%s'!" % str)
 			return {} # So shit doesn't hit the fan (what a weird expression)

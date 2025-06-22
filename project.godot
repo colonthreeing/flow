@@ -35,6 +35,7 @@ FileSingleton="*res://Scripts/FileSingleton.gd"
 NodePackSingleton="*res://Scripts/NodePackSingleton.gd"
 ThemeSingleton="*res://Scripts/ThemeSingleton.gd"
 YamlClassRegister="*res://Scripts/YamlClassRegister.gd"
+uuid="*res://addons/uuid/uuid.gd"
 
 [display]
 
@@ -45,7 +46,7 @@ display_server/driver.linuxbsd="wayland"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/native_dialogs/plugin.cfg", "res://addons/terminal/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/yaml/plugin.cfg")
+enabled=PackedStringArray("res://addons/native_dialogs/plugin.cfg", "res://addons/terminal/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/uuid/plugin.cfg", "res://addons/yaml/plugin.cfg")
 
 [input]
 
