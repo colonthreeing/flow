@@ -20,15 +20,34 @@ enums:
 nodes:
   - type: category
     name: Basic
-    tooltip: hello!!
+    tooltip: The most basic and intuitive nodes for VN creation.
     content:
       - type: node
         name: Talk
         tooltip: Makes the given character say something.
         components:
+          - type: Label
+            text: Dialogue
+            ports:
+              left: true
+              right: true
           - name: Dialogue
             type: TextEdit
             placeholder: Add dialogue here...
+          - type: Label
+            text: Author
           - name: Author
             type: Dropdown
             enum: vars/authors
+  - type: category
+    name: Control
+    tooltip: Nodes that control how nodes themselves interact.
+    content:
+      - type: node
+        name: Start
+        tooltip: The beginning of execution for the Event.
+        components:
+          - type: Label
+            text: Event Start
+            ports:
+              right: true

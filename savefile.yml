@@ -2,8 +2,32 @@
 nodes:
   - !DynamicGraphNode
     type: Talk
-    position: !Vector2 {x: 1240,y: 180}
-    size: !Vector2 {x: 420,y: 204}
+    position: !Vector2 {x: 960,y: 200}
+    size: !Vector2 {x: 180,y: 165}
+    id: !StringName 6326097c-9ae2-4949-bbc1-a4d8f412f41a
+    data:
+      Dialogue: "Why hello!"
+      Author: 0
+  - !DynamicGraphNode
+    type: Talk
+    position: !Vector2 {x: 680,y: 200}
+    size: !Vector2 {x: 180,y: 165}
+    id: !StringName ff0803f7-f1be-46fb-a6ab-01250f5404b0
+    data:
+      Dialogue: 
+      Author: 0
+  - !DynamicGraphNode
+    type: Talk
+    position: !Vector2 {x: 400,y: 200}
+    size: !Vector2 {x: 180,y: 165}
+    id: !StringName f1881551-8482-41ab-b485-7d14137f0458
+    data:
+      Dialogue: "Hello there!"
+      Author: 1
+  - !DynamicGraphNode
+    type: Talk
+    position: !Vector2 {x: 400,y: 400}
+    size: !Vector2 {x: 420,y: 219}
     id: !StringName 869837c9-dc80-4f93-9fb7-ccd396f0a2f3
     data:
       Dialogue: >-
@@ -14,35 +38,33 @@ nodes:
       Author: 0
   - !DynamicGraphNode
     type: Talk
-    position: !Vector2 {x: 960,y: 200}
-    size: !Vector2 {x: 180,y: 160}
-    id: !StringName 6326097c-9ae2-4949-bbc1-a4d8f412f41a
-    data:
-      Dialogue: "Why hello!"
-      Author: 0
-  - !DynamicGraphNode
-    type: Talk
-    position: !Vector2 {x: 680,y: 200}
-    size: !Vector2 {x: 180,y: 160}
-    id: !StringName ff0803f7-f1be-46fb-a6ab-01250f5404b0
-    data:
-      Dialogue: 
-      Author: 0
-  - !DynamicGraphNode
-    type: Talk
-    position: !Vector2 {x: 400,y: 200}
-    size: !Vector2 {x: 180,y: 160}
-    id: !StringName f1881551-8482-41ab-b485-7d14137f0458
-    data:
-      Dialogue: "Hello there!"
-      Author: 1
-  - !DynamicGraphNode
-    type: Talk
-    position: !Vector2 {x: 1760,y: 200}
-    size: !Vector2 {x: 180,y: 160}
+    position: !Vector2 {x: 920,y: 400}
+    size: !Vector2 {x: 180,y: 165}
     id: !StringName bf02a43b-fe04-4117-8e52-33d220b23e3c
     data:
       Dialogue: ":3 :3 :3 :3"
+      Author: 0
+  - !DynamicGraphNode
+    type: Talk
+    position: !Vector2 {x: 400,y: 640}
+    size: !Vector2 {x: 180,y: 165}
+    id: !StringName 2fb8a4b5-d39f-49e3-8479-eda18e215be4
+    data:
+      Dialogue: "This is more stuff!!!!"
+      Author: 0
+  - !DynamicGraphNode
+    type: Start
+    position: !Vector2 {x: 140,y: 200}
+    size: !Vector2 {x: 180,y: 66}
+    id: !StringName acfcfb99-7589-4be6-920f-388660927274
+    data: {}
+  - !DynamicGraphNode
+    type: Talk
+    position: !Vector2 {x: 660,y: 640}
+    size: !Vector2 {x: 380,y: 165}
+    id: !StringName fdbf2e43-2077-4942-93e0-809f22a9a2de
+    data:
+      Dialogue: "Very amazing and well made graphing system, eh?"
       Author: 0
 connections:
   - from_node: !StringName f1881551-8482-41ab-b485-7d14137f0458
@@ -63,6 +85,21 @@ connections:
   - from_node: !StringName 869837c9-dc80-4f93-9fb7-ccd396f0a2f3
     from_port: 0
     to_node: !StringName bf02a43b-fe04-4117-8e52-33d220b23e3c
+    to_port: 0
+    keep_alive: false
+  - from_node: !StringName bf02a43b-fe04-4117-8e52-33d220b23e3c
+    from_port: 0
+    to_node: !StringName 2fb8a4b5-d39f-49e3-8479-eda18e215be4
+    to_port: 0
+    keep_alive: false
+  - from_node: !StringName acfcfb99-7589-4be6-920f-388660927274
+    from_port: 0
+    to_node: !StringName f1881551-8482-41ab-b485-7d14137f0458
+    to_port: 0
+    keep_alive: false
+  - from_node: !StringName 2fb8a4b5-d39f-49e3-8479-eda18e215be4
+    from_port: 0
+    to_node: !StringName fdbf2e43-2077-4942-93e0-809f22a9a2de
     to_port: 0
     keep_alive: false
 vars:

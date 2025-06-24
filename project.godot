@@ -46,7 +46,7 @@ display_server/driver.linuxbsd="wayland"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/native_dialogs/plugin.cfg", "res://addons/terminal/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/uuid/plugin.cfg", "res://addons/yaml/plugin.cfg")
+enabled=PackedStringArray("res://addons/flow/plugin.cfg", "res://addons/native_dialogs/plugin.cfg", "res://addons/terminal/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/uuid/plugin.cfg", "res://addons/yaml/plugin.cfg")
 
 [input]
 

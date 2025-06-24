@@ -2,7 +2,10 @@ class_name DynamicGraphNode extends GraphNode
 
 var bound_data = {}
 var node_type = ""
+
 var node_data = {}
+var changed_ports = []
+var outports = []
 
 func _init(p_node_data : Dictionary = {}) -> void:
 	node_data = p_node_data
@@ -26,6 +29,43 @@ func bind_value(bound_name: StringName, node: Node, value: StringName):
 		"referrer": node,
 		"value": value
 	}
+
+func change_ports(node : Node, ports : Dictionary):
+	# This is objectively shitty coding *but* it works decently well
+	# And I'm not really sure how I would fix it.
+	# Submit a PR if you feel like it and I'll probably merge it.
+	for child_idx in get_child_count():
+		if get_child(child_idx) == node:
+			var left = ports.get("left")
+			var right = ports.get("right")
+			if left is bool:
+				set_slot_enabled_left(child_idx, left)
+#				set_slot_enabled_left(0, true)
+			elif left is Dictionary:
+				# lowkey ts pmo sm (/hj) since it needs to be there in case the slot is enabled
+				# but either of these aren't defined
+				# as otherwise it errors and doesn't make the slot work correctly.
+				if left.get("enabled") == true:
+					set_slot_enabled_left(child_idx, true)
+					if left.get("color") is Color:
+						set_slot_color_left(child_idx, left.get("color"))
+					if left.get("type") is int:
+						set_slot_type_left(child_idx, left.get("type"))
+			if right is bool:
+				set_slot_enabled_right(child_idx, right)
+				outports.append(child_idx)
+			elif right is Dictionary:
+				# lowkey ts pmo sm (/hj) since it needs to be there in case the slot is enabled
+				# but either of these aren't defined
+				# as otherwise it errors and doesn't make the slot work correctly.
+				if right.get("enabled") == true:
+					set_slot_enabled_right(child_idx, true)
+					outports.append(child_idx)
+					if right.get("color") is Color:
+						set_slot_color_left(child_idx, right.get("color"))
+					if right.get("type") is int:
+						set_slot_type_left(child_idx, right.get("type"))
+			break
 
 func _draw_port(slot_index: int, position: Vector2i, left: bool, color: Color) -> void:
 	"""
@@ -57,6 +97,27 @@ func serialize() -> Dictionary:
 
 static func deserialize(data: Dictionary) -> DynamicGraphNode:
 	return DynamicGraphNode.new(data)
+
+func find_connection(index, connections):
+	for connection in connections:
+		if connection.from_node == name and connection.from_port == index:
+			return connection
+
+func make_flow_node() -> FlowNode:
+	var fn := FlowNode.new()
+	
+	fn.data = node_data
+	
+	#! Bad practice but this is how I would want to do it
+	var all_ports = get_parent().connections
+	for own_port_idx in range(len(outports)):
+		var con = find_connection(outports[own_port_idx], all_ports)
+		if con:
+			fn.connections.append(con)
+	
+	print(fn.connections)
+	
+	return fn
 
 func build() -> void:
 	for child in get_children():

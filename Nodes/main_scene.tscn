@@ -26,7 +26,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 right_disconnects = true
-minimap_opacity = 1.0
 script = ExtResource("2_vwjav")
 
 [node name="RightClickMenu" parent="." instance=ExtResource("3_uc1n5")]

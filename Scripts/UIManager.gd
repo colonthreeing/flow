@@ -39,9 +39,10 @@ func _shortcut_input(event: InputEvent) -> void:
 			accept_event()
 			return
 		elif event.is_action_pressed("MoveNode") and len(graph.get_selected_nodes()) > 0:
-			moving_nodes = not moving_nodes
-			print("Moving!")
-			accept_event()
+#			moving_nodes = not moving_nodes
+#			print("Moving!")
+#			accept_event()
+			print("Moving hotkey is currently disabled. It will be available in a future release.")
 			return
 	
 	if event.is_action_pressed("SaveFile"):
@@ -49,6 +50,12 @@ func _shortcut_input(event: InputEvent) -> void:
 		
 		print("Saving data!")
 		sf.save("res://savefile.yml")
+		
+		for node_i in graph.get_child_count():
+			var node = graph.get_child(node_i)
+			if node is DynamicGraphNode:
+				node.make_flow_node()
+		
 		accept_event()
 		return
 
