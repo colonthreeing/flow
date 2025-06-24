@@ -106,16 +106,19 @@ func find_connection(index, connections):
 func make_flow_node() -> FlowNode:
 	var fn := FlowNode.new()
 	
-	fn.data = node_data
+	fn.id = node_data.id
+	fn.type = node_data.type
+	fn.data = node_data.data
 	
-	#! Bad practice but this is how I would want to do it
+	#! Bad practice but this is how I want to do it
 	var all_ports = get_parent().connections
 	for own_port_idx in range(len(outports)):
 		var con = find_connection(outports[own_port_idx], all_ports)
 		if con:
-			fn.connections.append(con)
-	
-	print(fn.connections)
+			fn.connections.append({
+				"port": con.from_port,
+				"to_node": con.to_node
+			})
 	
 	return fn
 

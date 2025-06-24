@@ -36,6 +36,7 @@ NodePackSingleton="*res://Scripts/NodePackSingleton.gd"
 ThemeSingleton="*res://Scripts/ThemeSingleton.gd"
 YamlClassRegister="*res://Scripts/YamlClassRegister.gd"
 uuid="*res://addons/uuid/uuid.gd"
+Flow="*res://addons/flow/autoload.gd"
 
 [display]
 

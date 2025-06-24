@@ -51,10 +51,14 @@ func _shortcut_input(event: InputEvent) -> void:
 		print("Saving data!")
 		sf.save("res://savefile.yml")
 		
+		var fe := FlowEvent.new()
+		
 		for node_i in graph.get_child_count():
 			var node = graph.get_child(node_i)
 			if node is DynamicGraphNode:
-				node.make_flow_node()
+				fe.nodes.append(node.make_flow_node())
+		
+		YAML.save_file(fe, "res://export.yml")
 		
 		accept_event()
 		return
