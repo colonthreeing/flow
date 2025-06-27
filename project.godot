@@ -23,9 +23,9 @@ resources_spreadsheet_view/freeze_first_column=true
 
 [application]
 
-config/name="flowgraph"
+config/name="GodotFlow"
 run/main_scene="res://Nodes/main_scene.tscn"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 run/low_processor_mode=true
 config/icon="res://icon.svg"
 

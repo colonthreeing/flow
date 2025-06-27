@@ -201,7 +201,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, node_data : 
 static func generate_ui(data: Dictionary, g: DynamicGraphNode, node_data = {}, allow_binding = true):
 	g.node_type = data.name
 	for comp in data.components:
-		g.add_child(generate_ui_item(comp, g, node_data, true))
+		g.add_child(generate_ui_item(comp, g, node_data, allow_binding))
 	
 	for port in g.changed_ports:
 		if port is Dictionary:
@@ -225,6 +225,10 @@ static func make_graph_node(data : Dictionary, node_data = {}, g : DynamicGraphN
 		g.name = node_data.get("id")
 	else:
 		g.name = uuid.v4()
+	
+	if node_data == {}:
+		g.node_data = g.serialize()
+	
 	return g
 
 static func load_graph_node(node : DynamicGraphNode, data : Dictionary) -> DynamicGraphNode:

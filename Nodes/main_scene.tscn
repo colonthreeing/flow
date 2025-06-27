@@ -59,6 +59,12 @@ offset_bottom = 553.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Notifier" type="NativeNotification" parent="."]
+unique_name_in_owner = true
+
+[node name="Dialogue" type="NativeAcceptDialog" parent="."]
+unique_name_in_owner = true
+
 [connection signal="connection_request" from="GraphEdit" to="GraphEdit" method="_on_connection_request"]
 [connection signal="copy_nodes_request" from="GraphEdit" to="GraphEdit" method="_on_copy_nodes_request"]
 [connection signal="delete_nodes_request" from="GraphEdit" to="GraphEdit" method="_on_delete_nodes_request"]
@@ -66,7 +72,6 @@ grow_vertical = 2
 [connection signal="node_deselected" from="GraphEdit" to="GraphEdit" method="_on_node_deselected"]
 [connection signal="node_selected" from="GraphEdit" to="GraphEdit" method="_on_node_selected"]
 [connection signal="popup_request" from="GraphEdit" to="." method="show_rightclick_menu"]
-[connection signal="right_clicked" from="GraphEdit" to="." method="show_rightclick_menu"]
 [connection signal="delete_requested" from="RightClickMenu" to="." method="_on_right_click_menu_delete_requested"]
 [connection signal="delete_requested" from="RightClickMenu" to="GraphEdit" method="_on_delete_nodes_request"]
 [connection signal="focus_exited" from="RightClickMenu" to="." method="close_rightclick_menu"]

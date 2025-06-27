@@ -1,9 +1,5 @@
 extends GraphEdit
 
-
-signal right_clicked
-signal left_clicked
-
 var selected_nodes := {}
 
 var copied_nodes : Array[GraphNode] = []
@@ -13,23 +9,6 @@ func add_node(pos: Vector2, title: String):
 	add_child(node)
 	node.position_offset = pos
 	node.title = title
-
-#func _input(event: InputEvent) -> void:
-	#if event is InputEventKey:
-		#pass
-##		if event.keycode == KEY_A and event.pressed:
-##			add_node(get_viewport().get_mouse_position() + scroll_offset, "New Node")
-##			accept_event()
-	#elif event is InputEventMouseButton:
-		#if event.button_index == MOUSE_BUTTON_RIGHT and not event.pressed:
-			#emit_signal("right_clicked")
-		#elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			#emit_signal("left_clicked")
-
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event is InputEventMouseButton:
-		#if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			#emit_signal("left_clicked")
 
 func _on_connection_request(from_node, from_port, to_node, to_port):
 	connect_node(from_node, from_port, to_node, to_port)
@@ -54,7 +33,6 @@ func _on_node_deselected(node: Node) -> void:
 
 func remove_connections_to_node(node):
 	for con in get_connection_list():
-		print(con)
 		if con.to_node == node.name or con.from_node == node.name:
 			disconnect_node(con.from_node, con.from_port, con.to_node, con.to_port)
 
@@ -70,3 +48,14 @@ func get_selected_nodes() -> Array[GraphElement]:
 			r.append(node)
 	
 	return r
+
+func find_node_with_property(prop_name : String, prop_value : Variant):
+	if prop_value == not null:
+		for node in get_children():
+			if node is not DynamicGraphNode: continue
+			if node.get_builder_data().get(prop_name) == prop_value:
+				return node
+	else:
+		for node : DynamicGraphNode in get_children():
+			if node.get_builder_data().has(prop_name):
+				return node

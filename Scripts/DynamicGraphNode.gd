@@ -53,7 +53,7 @@ func change_ports(node : Node, ports : Dictionary):
 						set_slot_type_left(child_idx, left.get("type"))
 			if right is bool:
 				set_slot_enabled_right(child_idx, right)
-				outports.append(child_idx)
+				if right: outports.append(child_idx)
 			elif right is Dictionary:
 				# lowkey ts pmo sm (/hj) since it needs to be there in case the slot is enabled
 				# but either of these aren't defined
@@ -67,7 +67,7 @@ func change_ports(node : Node, ports : Dictionary):
 						set_slot_type_left(child_idx, right.get("type"))
 			break
 
-func _draw_port(slot_index: int, position: Vector2i, left: bool, color: Color) -> void:
+func _draw_port(_slot_index: int, pos: Vector2i, _left: bool, color: Color) -> void:
 	"""
 	Slot slot = slot_table[p_slot_index];
 	Ref<Texture2D> port_icon = p_left ? slot.custom_port_icon_left : slot.custom_port_icon_right;
@@ -81,10 +81,10 @@ func _draw_port(slot_index: int, position: Vector2i, left: bool, color: Color) -
 	port_icon->draw(get_canvas_item(), p_pos + icon_offset, p_color);
 	"""
 	
-	draw_circle(position, 7, color, true, -1.0, false)
+	draw_circle(pos, 7, color, true, -1.0, false)
 	var stylebox = get_theme_stylebox("panel_selected") if selected else get_theme_stylebox("panel")
 	if stylebox is StyleBoxFlat:
-		draw_circle(position, 8, stylebox.border_color, false, 1.0, true)
+		draw_circle(pos, 8, stylebox.border_color, false, 1.0, true)
 
 func serialize() -> Dictionary:
 	return {
@@ -104,6 +104,9 @@ func find_connection(index, connections):
 			return connection
 
 func make_flow_node() -> FlowNode:
+	# First need to update own data
+	node_data.data = evaluate_bound()
+	
 	var fn := FlowNode.new()
 	
 	fn.id = node_data.id
@@ -113,12 +116,11 @@ func make_flow_node() -> FlowNode:
 	#! Bad practice but this is how I want to do it
 	var all_ports = get_parent().connections
 	for own_port_idx in range(len(outports)):
-		var con = find_connection(outports[own_port_idx], all_ports)
+		var con = find_connection(own_port_idx, all_ports)
 		if con:
-			fn.connections.append({
-				"port": con.from_port,
-				"to_node": con.to_node
-			})
+			fn.connections.append(con.to_node)
+		else:
+			fn.connections.append(&"") # So the indexes are still the same
 	
 	return fn
 
@@ -126,3 +128,6 @@ func build() -> void:
 	for child in get_children():
 		child.queue_free()
 	GraphNodeMaker.load_graph_node(self, node_data)
+
+func get_builder_data() -> Dictionary:
+	return NodePackSingleton.leaves.get(node_data.get("type", ""), {})

@@ -39,6 +39,27 @@ nodes:
           - name: Author
             type: Dropdown
             enum: vars/authors
+      - type: node
+        name: Choice2
+        tooltip: Gives a choice between 2 options.
+        components:
+          - name: Label1
+            type: Label
+            text: Option 1
+            ports:
+              left: true
+          - name: Option1
+            type: LineEdit
+            ports:
+              right: true
+          - name: Label2
+            type: Label
+            text: Option 2
+          - name: Option2
+            type: LineEdit
+            ports:
+              right: true
+
   - type: category
     name: Control
     tooltip: Nodes that control how nodes themselves interact.
@@ -46,8 +67,17 @@ nodes:
       - type: node
         name: Start
         tooltip: The beginning of execution for the Event.
+        is_event_start: true
         components:
           - type: Label
             text: Event Start
             ports:
               right: true
+      - type: node
+        name: Comment
+        tooltip: A node with no purpose other than providing context for anyone reading the graph.
+        export: false
+        components:
+          - type: TextEdit
+            name: Comment
+            placeholder: Comment...

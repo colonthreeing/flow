@@ -1,74 +1,71 @@
 !FlowEvent
+start: !FlowNode
+  id: !StringName 7600e8f1-6c37-4658-970a-14cf3df19e78
+  type: !StringName Start
+  connections:
+    - !StringName 7067eda1-204e-4446-b0dd-c85628ad892d
+  data: {}
 nodes:
   - !FlowNode
-    id: !StringName 6326097c-9ae2-4949-bbc1-a4d8f412f41a
+    id: !StringName d8247923-dec9-4691-9f46-3eb6ef2da5ab
     type: !StringName Talk
     connections:
-      - port: 0
-        to_node: !StringName 869837c9-dc80-4f93-9fb7-ccd396f0a2f3
+      - !StringName 35871070-06cc-4803-8d91-1f56c92de8c6
     data:
-      Dialogue: "Why hello!"
-      Author: 0
-  - !FlowNode
-    id: !StringName ff0803f7-f1be-46fb-a6ab-01250f5404b0
-    type: !StringName Talk
-    connections:
-      - port: 0
-        to_node: !StringName 6326097c-9ae2-4949-bbc1-a4d8f412f41a
-    data:
-      Dialogue: 
-      Author: 0
-  - !FlowNode
-    id: !StringName 869837c9-dc80-4f93-9fb7-ccd396f0a2f3
-    type: !StringName Talk
-    connections:
-      - port: 0
-        to_node: !StringName bf02a43b-fe04-4117-8e52-33d220b23e3c
-    data:
-      Dialogue: >-
-        Oh, hey!
-
-
-        I'm ok, how about you?
-      Author: 0
-  - !FlowNode
-    id: !StringName bf02a43b-fe04-4117-8e52-33d220b23e3c
-    type: !StringName Talk
-    connections:
-      - port: 0
-        to_node: !StringName 2fb8a4b5-d39f-49e3-8479-eda18e215be4
-    data:
-      Dialogue: ":3 :3 :3 :3"
-      Author: 0
-  - !FlowNode
-    id: !StringName 2fb8a4b5-d39f-49e3-8479-eda18e215be4
-    type: !StringName Talk
-    connections:
-      - port: 0
-        to_node: !StringName fdbf2e43-2077-4942-93e0-809f22a9a2de
-    data:
-      Dialogue: "This is more stuff!!!!"
-      Author: 0
-  - !FlowNode
-    id: !StringName acfcfb99-7589-4be6-920f-388660927274
-    type: !StringName Start
-    connections:
-      - port: 0
-        to_node: !StringName f1881551-8482-41ab-b485-7d14137f0458
-    data: {}
-  - !FlowNode
-    id: !StringName fdbf2e43-2077-4942-93e0-809f22a9a2de
-    type: !StringName Talk
-    connections: []
-    data:
-      Dialogue: "Very amazing and well made graphing system, eh?"
-      Author: 0
-  - !FlowNode
-    id: !StringName f1881551-8482-41ab-b485-7d14137f0458
-    type: !StringName Talk
-    connections:
-      - port: 0
-        to_node: !StringName ff0803f7-f1be-46fb-a6ab-01250f5404b0
-    data:
-      Dialogue: "Hello there!"
+      Dialogue: wow
       Author: 1
+  - !FlowNode
+    id: !StringName 7067eda1-204e-4446-b0dd-c85628ad892d
+    type: !StringName Talk
+    connections:
+      - !StringName d8247923-dec9-4691-9f46-3eb6ef2da5ab
+    data:
+      Dialogue: amazing
+      Author: 0
+  - !FlowNode
+    id: !StringName 35871070-06cc-4803-8d91-1f56c92de8c6
+    type: !StringName Choice2
+    connections:
+      - !StringName c6735ccf-37f3-49bc-98b9-c9f103f2b34e
+      - !StringName 3546080f-78f2-4595-bc7e-1440187ffa52
+    data:
+      Option1: "Now loop!"
+      Option2: "But wait! There's more!"
+  - !FlowNode
+    id: !StringName 762deb25-d5de-48a3-9061-3668db1e9161
+    type: !StringName Talk
+    connections:
+      - !StringName 
+    data:
+      Dialogue: damn
+      Author: 0
+  - !FlowNode
+    id: !StringName c36bcbf7-f4af-4832-ae28-e29cf95ee60a
+    type: !StringName Talk
+    connections:
+      - !StringName 
+    data:
+      Dialogue: damn
+      Author: 1
+  - !FlowNode
+    id: !StringName 3546080f-78f2-4595-bc7e-1440187ffa52
+    type: !StringName Talk
+    connections:
+      - !StringName 762deb25-d5de-48a3-9061-3668db1e9161
+    data:
+      Dialogue: option 2 was selected
+      Author: 1
+  - !FlowNode
+    id: !StringName c6735ccf-37f3-49bc-98b9-c9f103f2b34e
+    type: !StringName Talk
+    connections:
+      - !StringName c36bcbf7-f4af-4832-ae28-e29cf95ee60a
+    data:
+      Dialogue: option 1 was selected
+      Author: 0
+vars:
+  authors:
+    type: enum
+    values:
+      - Author 1
+      - Author 2

@@ -11,6 +11,27 @@ var requested_node_position : Vector2
 
 var moving_nodes : bool = false
 
+enum Icon {
+	ICON_INFO,
+	ICON_WARNING,
+	ICON_ERROR,
+	ICON_QUESTION
+}
+
+func notify(text, title = "Notification") -> void:
+	%Notifier.title = title
+	%Notifier.notification_text = text
+	
+	%Notifier.send()
+
+func alert(text, title = "Alert", icon: Icon = 1) -> void:
+	%Dialogue.title = title
+	%Dialogue.dialog_text = text
+	%Dialogue.dialog_icon = icon
+	
+	%Dialogue.show()
+
+
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -56,7 +77,14 @@ func _shortcut_input(event: InputEvent) -> void:
 		for node_i in graph.get_child_count():
 			var node = graph.get_child(node_i)
 			if node is DynamicGraphNode:
-				fe.nodes.append(node.make_flow_node())
+				var bdat = node.get_builder_data()
+				if not bdat.get("export", true): continue
+				if bdat.get("is_event_start", false):
+					fe.start = node.make_flow_node()
+				else:
+					fe.nodes.append(node.make_flow_node())
+		
+		fe.vars = NodePackSingleton.vars
 		
 		YAML.save_file(fe, "res://export.yml")
 		
@@ -97,6 +125,10 @@ func close_new_mode_menu():
 	newNodePopup.hide()
 
 func _on_requested_new_node(data : Dictionary) -> void:
+	if data.get("is_event_start", false):
+		if not (graph.find_node_with_property("is_event_start", true) == null):
+			alert("You can only have one %s in any given scene." % data.get("name"), "Error")
+			return
 	var new_node : GraphNode = GraphNodeMaker.make_graph_node(data)
 	
 	new_node.position_offset = requested_node_position - Vector2(new_node.size.x / 2.0, 10.0)

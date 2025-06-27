@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5l1wxu872i2p"]
+
+[sub_resource type="GDScript" id="GDScript_wurot"]
+script/source = "extends Control
+
+@onready var fc : FlowController = %FlowController
+
+func _ready() -> void:
+	fc.load_event(YAML.load_file(\"res://export.yml\").get_data())
+	fc.next()
+
+func _on_button_pressed() -> void:
+	await fc.next()
+"
+
+[sub_resource type="GDScript" id="GDScript_wwfsh"]
+script/source = "extends FlowController
+
+@onready var author = %Author
+@onready var dialogue = %Dialogue
+
+func next() -> void:
+	match current_node.type:
+		\"Talk\":
+			author.text = event.vars.get(\"authors\", {}).get(\"values\", {})[current_node.data.get(\"Author\", 0)]
+			dialogue.text = current_node.data.get(\"Dialogue\", \"\")
+			
+			go_from_port(0)
+		\"Start\":
+			go_from_port(0)
+		\"Choice2\":
+			go_from_port(0)
+"
+
+[node name="TestScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_wurot")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Disclaimer" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "don't mind the fact that this is a very minimal interface it's just because I havent ported the new system to the visual novel engine"
+
+[node name="Author" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Author"
+
+[node name="Dialogue" type="RichTextLabel" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Dialogue"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Option1" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Option 1"
+
+[node name="Option2" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Option 2"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Next piece of dialogue"
+
+[node name="FlowController" type="Node" parent="."]
+unique_name_in_owner = true
+script = SubResource("GDScript_wwfsh")
+metadata/_custom_type_script = "uid://bee241xp3pn0a"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
