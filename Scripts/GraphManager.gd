@@ -4,6 +4,9 @@ var selected_nodes := {}
 
 var copied_nodes : Array[GraphNode] = []
 
+func _ready() -> void:
+	show_menu = false
+
 func add_node(pos: Vector2, title: String):
 	var node := GraphNode.new()
 	add_child(node)

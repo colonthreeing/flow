@@ -232,8 +232,9 @@ static func make_graph_node(data : Dictionary, node_data = {}, g : DynamicGraphN
 	return g
 
 static func load_graph_node(node : DynamicGraphNode, data : Dictionary) -> DynamicGraphNode:
-	var creation_data : Dictionary = NodePackSingleton.leaves[data.get("type", "")]
+	var creation_data : Dictionary = NodePackSingleton.leaves.get(data.get("type", ""), {})
 	
+#	if creation_data == null: return make_graph_node({}, {}, node)
 	var new_node = make_graph_node(creation_data, data, node)
 	
 	new_node.position_offset = data.get("position", Vector2(0,0))

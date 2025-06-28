@@ -124,7 +124,10 @@ func define_theme():
 	})
 	
 	define_style("GraphEdit", {
-		panel = inherit(panel_style, {bg_color = background_pressed_color}),
+		panel = inherit(panel_style, {
+			bg_color = background_pressed_color,
+			corner_ = corner_radius(0, 0, 0, 0)
+		}),
 		menu_panel = general_hover_style,
 		
 		grid_major = surface_color_1,

@@ -35,18 +35,10 @@ nodes:
     id: !StringName 762deb25-d5de-48a3-9061-3668db1e9161
     type: !StringName Talk
     connections:
-      - !StringName 
+      - !StringName 2f95f4f8-96a7-4d23-a86d-ecb415f7ca95
     data:
-      Dialogue: damn
+      Dialogue: "so what now?"
       Author: 0
-  - !FlowNode
-    id: !StringName c36bcbf7-f4af-4832-ae28-e29cf95ee60a
-    type: !StringName Talk
-    connections:
-      - !StringName 
-    data:
-      Dialogue: damn
-      Author: 1
   - !FlowNode
     id: !StringName 3546080f-78f2-4595-bc7e-1440187ffa52
     type: !StringName Talk
@@ -55,6 +47,170 @@ nodes:
     data:
       Dialogue: option 2 was selected
       Author: 1
+  - !FlowNode
+    id: !StringName eb290047-c471-4a48-98c1-4c856adb9817
+    type: !StringName Talk
+    connections:
+      - !StringName cc042a09-ca60-460d-8f97-f8e515dcbf62
+    data:
+      Dialogue: ok then
+      Author: 1
+  - !FlowNode
+    id: !StringName c36bcbf7-f4af-4832-ae28-e29cf95ee60a
+    type: !StringName Talk
+    connections:
+      - !StringName eb290047-c471-4a48-98c1-4c856adb9817
+    data:
+      Dialogue: damn
+      Author: 1
+  - !FlowNode
+    id: !StringName cc042a09-ca60-460d-8f97-f8e515dcbf62
+    type: !StringName Tunnel Entrance
+    connections: []
+    data:
+      TunnelName: enter_loop
+  - !FlowNode
+    id: !StringName 46664d50-0418-4092-9218-1d5988abc563
+    type: !StringName Tunnel Exit
+    connections:
+      - !StringName d8247923-dec9-4691-9f46-3eb6ef2da5ab
+    data:
+      TunnelName: enter_loop
+  - !FlowNode
+    id: !StringName 2f95f4f8-96a7-4d23-a86d-ecb415f7ca95
+    type: !StringName Talk
+    connections:
+      - !StringName 432c4c2d-fcf5-4460-a1ed-f1d9001edfc7
+    data:
+      Dialogue: "let's talk about something maybe?"
+      Author: 1
+  - !FlowNode
+    id: !StringName 432c4c2d-fcf5-4460-a1ed-f1d9001edfc7
+    type: !StringName Choice2
+    connections:
+      - !StringName 911e8127-b256-441e-825e-148de18d796f
+      - !StringName 34aff856-18a9-4ad7-b430-786e76a4ccfe
+    data:
+      Option1: Talk about the woke mob
+      Option2: talk about deltarune
+  - !FlowNode
+    id: !StringName ebcc6070-68e2-477c-83bb-84429d175212
+    type: !StringName Talk
+    connections:
+      - !StringName 1bc7e4c2-5f5a-422e-9380-e5136249de35
+    data:
+      Dialogue: holy shit
+      Author: 1
+  - !FlowNode
+    id: !StringName 911e8127-b256-441e-825e-148de18d796f
+    type: !StringName Talk
+    connections:
+      - !StringName ebcc6070-68e2-477c-83bb-84429d175212
+    data:
+      Dialogue: i'm gay
+      Author: 0
+  - !FlowNode
+    id: !StringName 34aff856-18a9-4ad7-b430-786e76a4ccfe
+    type: !StringName Talk
+    connections:
+      - !StringName a6a8a451-6f5d-4cb7-8fcc-1cbd397dc995
+    data:
+      Dialogue: so... ralsei
+      Author: 0
+  - !FlowNode
+    id: !StringName a6a8a451-6f5d-4cb7-8fcc-1cbd397dc995
+    type: !StringName Talk
+    connections:
+      - !StringName d53826f1-6730-469d-884b-dce4508d23dc
+    data:
+      Dialogue: "yeah?"
+      Author: 1
+  - !FlowNode
+    id: !StringName d53826f1-6730-469d-884b-dce4508d23dc
+    type: !StringName Talk
+    connections:
+      - !StringName ef7f07bb-412f-4190-b063-f6bc62d82efa
+    data:
+      Dialogue: "he pretty cool right?"
+      Author: 0
+  - !FlowNode
+    id: !StringName ef7f07bb-412f-4190-b063-f6bc62d82efa
+    type: !StringName Talk
+    connections:
+      - !StringName a0971e8d-c6eb-4610-b453-856ba89e7c52
+    data:
+      Dialogue: fo sho
+      Author: 1
+  - !FlowNode
+    id: !StringName a0971e8d-c6eb-4610-b453-856ba89e7c52
+    type: !StringName Talk
+    connections:
+      - !StringName 7ee73c71-7fbb-4392-a101-193d7d599ea2
+    data:
+      Dialogue: ":3"
+      Author: 0
+  - !FlowNode
+    id: !StringName 1bc7e4c2-5f5a-422e-9380-e5136249de35
+    type: !StringName Talk
+    connections:
+      - !StringName 017f534b-2901-4f70-a0f3-2b1d958c85aa
+    data:
+      Dialogue: "does that mean you're into me?"
+      Author: 1
+  - !FlowNode
+    id: !StringName 017f534b-2901-4f70-a0f3-2b1d958c85aa
+    type: !StringName Choice2
+    connections:
+      - !StringName 0b88ab9a-e699-4142-8124-527550b45fb8
+      - !StringName de5d871d-65fa-4312-a342-a79b3eb3991e
+    data:
+      Option1: "yes <3 <3 <3"
+      Option2: dawg what
+  - !FlowNode
+    id: !StringName de5d871d-65fa-4312-a342-a79b3eb3991e
+    type: !StringName Talk
+    connections:
+      - !StringName 29b718cc-15cd-40e9-a44e-37dc5f1b989a
+    data:
+      Dialogue: that's.... not how it works. at all.
+      Author: 0
+  - !FlowNode
+    id: !StringName 0b88ab9a-e699-4142-8124-527550b45fb8
+    type: !StringName Talk
+    connections:
+      - !StringName 79ea4ebe-0104-4ec2-970f-be24dea55832
+    data:
+      Dialogue: "of course, ily pookie <3"
+      Author: 0
+  - !FlowNode
+    id: !StringName 79ea4ebe-0104-4ec2-970f-be24dea55832
+    type: !StringName Talk
+    connections:
+      - !StringName 7ee73c71-7fbb-4392-a101-193d7d599ea2
+    data:
+      Dialogue: "ily too <3"
+      Author: 1
+  - !FlowNode
+    id: !StringName 29b718cc-15cd-40e9-a44e-37dc5f1b989a
+    type: !StringName Talk
+    connections:
+      - !StringName 7ee73c71-7fbb-4392-a101-193d7d599ea2
+    data:
+      Dialogue: shit
+      Author: 1
+  - !FlowNode
+    id: !StringName c8820c21-8123-4727-95c7-a42937290d86
+    type: !StringName Tunnel Exit
+    connections:
+      - !StringName 762deb25-d5de-48a3-9061-3668db1e9161
+    data:
+      TunnelName: say gex
+  - !FlowNode
+    id: !StringName 7ee73c71-7fbb-4392-a101-193d7d599ea2
+    type: !StringName Tunnel Entrance
+    connections: []
+    data:
+      TunnelName: say gex
   - !FlowNode
     id: !StringName c6735ccf-37f3-49bc-98b9-c9f103f2b34e
     type: !StringName Talk
@@ -67,5 +223,5 @@ vars:
   authors:
     type: enum
     values:
-      - Author 1
-      - Author 2
+      - You
+      - Them

@@ -61,6 +61,33 @@ nodes:
               right: true
 
   - type: category
+    name: Advanced
+    tooltip: More complicated nodes for making Visual Novels.
+    content:
+      - type: node
+        name: Tunnel Entrance
+        tooltip: Entrance for a Tunnel.
+        components:
+          - type: Label
+            text: Tunnel name
+            ports:
+              left: true
+          - type: LineEdit
+            name: TunnelName
+            placeholder: Name...
+      - type: node
+        name: Tunnel Exit
+        tooltip: Exit for a Tunnel.
+        components:
+          - type: Label
+            text: Tunnel name
+            ports:
+              right: true
+          - type: LineEdit
+            name: TunnelName
+            placeholder: Name...
+
+  - type: category
     name: Control
     tooltip: Nodes that control how nodes themselves interact.
     content:

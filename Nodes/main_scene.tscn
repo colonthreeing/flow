@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://b83b8mgf7l12w"]
+[gd_scene load_steps=10 format=3 uid="uid://b83b8mgf7l12w"]
 
 [ext_resource type="Script" uid="uid://ctra772arulls" path="res://Scripts/UIManager.gd" id="1_mmvkr"]
 [ext_resource type="Theme" uid="uid://chxsbitmb5lsf" path="res://Themes/generated/dark_theme.tres" id="1_qxndv"]
 [ext_resource type="Script" uid="uid://dkomkmenms0ci" path="res://Scripts/GraphManager.gd" id="2_vwjav"]
 [ext_resource type="PackedScene" uid="uid://cehglqie0uvvo" path="res://Nodes/RightClickMenu.tscn" id="3_uc1n5"]
 [ext_resource type="PackedScene" uid="uid://dv8roktwrsal5" path="res://Nodes/AddNewNodeMenu.tscn" id="4_vwjav"]
+[ext_resource type="Texture2D" uid="uid://cgpe01h4j1436" path="res://Themes/images/dark/circle-plus.svg" id="6_qxndv"]
+[ext_resource type="Texture2D" uid="uid://b63kvde1hj0cu" path="res://Themes/images/dark/circle-x.svg" id="7_44un6"]
+[ext_resource type="Texture2D" uid="uid://dyg76kej7xubl" path="res://Themes/images/dark/map-pin.svg" id="8_tt1ex"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tt1ex"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -26,6 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 right_disconnects = true
+minimap_opacity = 1.0
 script = ExtResource("2_vwjav")
 
 [node name="RightClickMenu" parent="." instance=ExtResource("3_uc1n5")]
@@ -54,8 +60,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 519.0
-offset_bottom = 553.0
+offset_right = -5.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -64,6 +70,38 @@ unique_name_in_owner = true
 
 [node name="Dialogue" type="NativeAcceptDialog" parent="."]
 unique_name_in_owner = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 10.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tt1ex")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="AddNodeButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("6_qxndv")
+icon_alignment = 1
+
+[node name="RemoveNodeButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("7_44un6")
+icon_alignment = 1
+
+[node name="ToggleMinimapButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("8_tt1ex")
+icon_alignment = 1
 
 [connection signal="connection_request" from="GraphEdit" to="GraphEdit" method="_on_connection_request"]
 [connection signal="copy_nodes_request" from="GraphEdit" to="GraphEdit" method="_on_copy_nodes_request"]
