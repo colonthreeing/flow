@@ -219,9 +219,18 @@ nodes:
     data:
       Dialogue: option 1 was selected
       Author: 0
+  - !FlowNode
+    id: !StringName d7e8fee2-ac0b-45a4-9fed-8d6977ded392
+    type: !StringName ChoiceN
+    connections: []
+    data:
+      Options:
+        - asd
+        - ":3 :3 :3"
+        - 333
 vars:
   authors:
     type: enum
     values:
-      - You
-      - Them
+      - Author 1
+      - Author 2

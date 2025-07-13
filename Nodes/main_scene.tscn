@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b83b8mgf7l12w"]
+[gd_scene load_steps=11 format=3 uid="uid://b83b8mgf7l12w"]
 
 [ext_resource type="Script" uid="uid://ctra772arulls" path="res://Scripts/UIManager.gd" id="1_mmvkr"]
 [ext_resource type="Theme" uid="uid://chxsbitmb5lsf" path="res://Themes/generated/dark_theme.tres" id="1_qxndv"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cehglqie0uvvo" path="res://Nodes/RightClickMenu.tscn" id="3_uc1n5"]
 [ext_resource type="PackedScene" uid="uid://dv8roktwrsal5" path="res://Nodes/AddNewNodeMenu.tscn" id="4_vwjav"]
 [ext_resource type="Texture2D" uid="uid://cgpe01h4j1436" path="res://Themes/images/dark/circle-plus.svg" id="6_qxndv"]
+[ext_resource type="Texture2D" uid="uid://bgsdhh052j20x" path="res://Themes/images/dark/circle-play.svg" id="6_v4d34"]
 [ext_resource type="Texture2D" uid="uid://b63kvde1hj0cu" path="res://Themes/images/dark/circle-x.svg" id="7_44un6"]
 [ext_resource type="Texture2D" uid="uid://dyg76kej7xubl" path="res://Themes/images/dark/map-pin.svg" id="8_tt1ex"]
 
@@ -60,8 +61,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
+offset_right = 519.0
+offset_bottom = 553.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -86,6 +87,12 @@ theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("6_v4d34")
+icon_alignment = 1
 
 [node name="AddNodeButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2

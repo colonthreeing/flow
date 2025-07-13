@@ -15,16 +15,24 @@ func _ready() -> void:
 	size.x = 180
 	resizable = true
 
-func evaluate_bound() -> Dictionary:
+func evaluate_bound(bd = bound_data) -> Dictionary:
 	var evaluated = {}
 	
-	for bound_key : StringName in bound_data:
+	for bound_key : StringName in bd:
 		var bound = bound_data[bound_key]
-		evaluated[bound_key] = bound.referrer.get(bound.value)
+		evaluated[bound_key] = evaluate_single_bound(bound)
+	return evaluated
+
+func evaluate_single_bound(bound) -> Variant:
+	var evaluated
+	if bound.value is Callable:
+		evaluated = bound.value.call()
+	else:
+		evaluated = bound.referrer.get(bound.value)
 	
 	return evaluated
 
-func bind_value(bound_name: StringName, node: Node, value: StringName):
+func bind_value(bound_name: StringName, node: Node, value: Variant):
 	bound_data[bound_name] = {
 		"referrer": node,
 		"value": value

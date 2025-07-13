@@ -40,6 +40,24 @@ nodes:
             type: Dropdown
             enum: vars/authors
       - type: node
+        name: ChoiceN
+        tooltip: Gives a choice between N options.
+        components:
+          - name: Label
+            type: Label
+            text: Choice
+            ports:
+              left: true
+          - name: Options
+            type: Generator
+            component:
+              name: Option
+              type: LineEdit
+              placeholder: Choice...
+              ports:
+                right: true
+
+      - type: node
         name: Choice2
         tooltip: Gives a choice between 2 options.
         components:

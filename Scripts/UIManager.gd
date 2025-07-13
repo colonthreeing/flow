@@ -24,7 +24,7 @@ func notify(text, title = "Notification") -> void:
 	
 	%Notifier.send()
 
-func alert(text, title = "Alert", icon: Icon = 1) -> void:
+func alert(text, title = "Alert", icon: Icon = Icon.ICON_INFO) -> void:
 	%Dialogue.title = title
 	%Dialogue.dialog_text = text
 	%Dialogue.dialog_icon = icon
@@ -67,7 +67,7 @@ func _shortcut_input(event: InputEvent) -> void:
 			return
 	
 	if event.is_action_pressed("SaveFile"):
-		var sf = Savefile.new(get_graph_nodes(), graph.connections, NodePackSingleton.vars)
+		var sf = Savefile.new(get_graph_nodes(), graph, NodePackSingleton.vars)
 		
 		print("Saving data!")
 		sf.save("res://savefile.yml")
@@ -138,6 +138,9 @@ func _ready() -> void:
 	graph.grab_focus()
 	
 	var sf: Savefile = YAML.try_load_file("res://savefile.yml")
+	
+	graph.zoom = sf.camera.zoom
+	graph.scroll_offset = sf.camera.offset
 	
 	NodePackSingleton.vars = sf.vars
 	

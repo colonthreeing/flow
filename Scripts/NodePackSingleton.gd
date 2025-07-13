@@ -23,8 +23,8 @@ func _init() -> void:
 	
 #	print(YAML.stringify(leaves).get_data())
 
-func get_value_from_string(str: String):
-	var s = str.split("/")
+func get_value_from_string(stri: String):
+	var s = stri.split("/")
 	
 	match s[0]:
 		"vars":

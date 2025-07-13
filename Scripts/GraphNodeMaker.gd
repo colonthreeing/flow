@@ -3,7 +3,7 @@ class_name GraphNodeMaker extends RefCounted
 static func coalesce(a, b):
 	return a if a else b
 
-static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, node_data : Dictionary = {}, allow_binding : bool = true):
+static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Callable, node_data : Dictionary = {}, allow_binding : bool = true):
 	match comp.type:
 			#! POTENTIAL REFACTOR: Use scenes instead of defining all through code
 			"Label":
@@ -29,7 +29,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, node_data : 
 				
 				te.theme_type_variation = "SmallText"
 				
-				if allow_binding: g.bind_value(comp.name, te, "text")
+				if allow_binding: binder.call(comp.name, te, "text")
 				if node_data.has(comp.name): te.text = coalesce(node_data.get(comp.name), "")
 				
 				if comp.has("ports"): g.changed_ports.append({"node": te, "settings": comp.get("ports")})
@@ -47,7 +47,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, node_data : 
 				
 				le.theme_type_variation = "SmallText"
 				
-				if allow_binding: g.bind_value(comp.name, le, "text")
+				if allow_binding: binder.call(comp.name, le, "text")
 				if node_data.has(comp.name):
 					le.text = coalesce(node_data.get(comp.name), "")
 				
@@ -93,7 +93,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, node_data : 
 				vbc.add_child(hbc)
 				
 				
-				if allow_binding: g.bind_value(comp.name, le, "text")
+				if allow_binding: binder.call(comp.name, le, "text")
 				if node_data.has(comp.name):
 					le.text = coalesce(node_data.get(comp.name), "")
 
@@ -159,7 +159,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, node_data : 
 				vbc.add_child(display)
 				
 				
-				if allow_binding: g.bind_value(comp.name, le, "text")
+				if allow_binding: binder.call(comp.name, le, "text")
 				if node_data.has(comp.name):
 					file_edit.emit_signal("file_selected", coalesce(node_data.get(comp.name), ""))
 				
@@ -172,7 +172,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, node_data : 
 				for val in NodePackSingleton.get_value_from_string(comp.enum):
 					dd.add_item(val)
 				
-				if allow_binding: g.bind_value(comp.name, dd, "selected")
+				if allow_binding: binder.call(comp.name, dd, "selected")
 				if node_data.has(comp.name):
 					dd.selected = coalesce(node_data.get(comp.name), 0)
 				
@@ -194,6 +194,82 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, node_data : 
 					  #so that they can have their own slot
 				#"""
 				#pass
+			"Generator":
+				var btn = Button.new()
+				
+				btn.icon = ThemeSingleton.load_theme_icon("circle-plus.svg")
+				btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				
+				btn.set_meta("created", 0)
+				btn.set_meta("values", [])
+				btn.set_meta("own_refs", [])
+				
+				var own_binder = func(_name, node, value):
+					#var v = btn.get_meta("values")
+					#print(node, value)
+					#
+					#var val = g.evaluate_single_bound({
+						#"referrer": node,
+						#"value": value
+					#})
+					#
+					#val = node.get(value)
+					#
+					#print(val)
+					#v.append(val)
+					var meta = btn.get_meta("own_refs")
+					meta.append({
+						"referrer": node,
+						"value": value
+					})
+					
+				var create_option = func ():
+					for index in range(g.get_child_count()):
+						if g.get_child(index) == btn:
+							var new_comp = comp.get("component", {}).duplicate()
+							
+							#new_comp.name = "%s/%s%s" % [
+								#orig_comp.name,
+								#new_comp.name,
+								#btn.get_meta("created")
+							#]
+							
+							var c = generate_ui_item(new_comp, g,
+													 own_binder, node_data)
+							
+							g.add_child(c)
+							
+							g.move_child(c, index)
+							
+							btn.set_meta("created", btn.get_meta("created") + 1)
+				
+				if node_data.has(comp.name):
+					for i in node_data.get(comp.name):
+						create_option.call()
+				
+				btn.pressed.connect(create_option)
+				
+				if allow_binding:
+					binder.call(
+						comp.name,
+						btn,
+						func():
+							var found := []
+							
+							for bound in btn.get_meta("own_refs"):
+								found.append(
+									g.evaluate_single_bound(
+										bound
+									)
+								)
+							
+							return found
+							
+							# return g.evaluate_bound(btn.get_meta("own_refs"))
+					)
+				
+				return btn
+
 			_:
 				push_error("Unknown type passed: %s" % comp.type)
 	
@@ -201,7 +277,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, node_data : 
 static func generate_ui(data: Dictionary, g: DynamicGraphNode, node_data = {}, allow_binding = true):
 	g.node_type = data.name
 	for comp in data.components:
-		g.add_child(generate_ui_item(comp, g, node_data, allow_binding))
+		g.add_child(generate_ui_item(comp, g, g.bind_value, node_data, allow_binding))
 	
 	for port in g.changed_ports:
 		if port is Dictionary:
