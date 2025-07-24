@@ -38,6 +38,11 @@ func bind_value(bound_name: StringName, node: Node, value: Variant):
 		"value": value
 	}
 
+func update_ports():
+	for port in changed_ports:
+		if port is Dictionary:
+			change_ports(port.node, port.settings)
+
 func change_ports(node : Node, ports : Dictionary):
 	# This is objectively shitty coding *but* it works decently well
 	# And I'm not really sure how I would fix it.

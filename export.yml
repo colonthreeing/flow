@@ -222,12 +222,20 @@ nodes:
   - !FlowNode
     id: !StringName d7e8fee2-ac0b-45a4-9fed-8d6977ded392
     type: !StringName ChoiceN
-    connections: []
+    connections:
+      - !StringName 
+      - !StringName 
+      - !StringName 
+      - !StringName 
+      - !StringName 
     data:
       Options:
         - asd
-        - ":3 :3 :3"
-        - 333
+        - "wowzers!!"
+        - dfg
+        - fgh
+        - ghj
+      Author: 0
 vars:
   authors:
     type: enum

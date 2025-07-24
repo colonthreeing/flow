@@ -56,6 +56,9 @@ nodes:
               placeholder: Choice...
               ports:
                 right: true
+          - name: Author
+            type: Dropdown
+            enum: vars/authors
 
       - type: node
         name: Choice2

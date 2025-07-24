@@ -8,88 +8,6 @@ var search_line : int = 0
 signal requested_close
 signal requested_new_node(node_data : Dictionary)
 
-
-#TODO: Add this to `nodes` and update code
-#enum node_types {
-#	CATEGORY,
-#	NODE
-#}
-
-var nodes_old = [
-	{
-		"type": "category",
-		"name": "Dialogue",
-		"tooltip": "Events that change the dialogue box (talking, etc)",
-		"content": [
-			{
-				"type": "node",
-				"name": "Talk",
-				"tooltip": "Convenience event for changing text, author, and waiting for the next input.",
-				"path": "res://GraphNodeTypes/Nodes/DialogueTalk.tscn"
-			},
-			{
-				"type": "node",
-				"name": "ChangeAuthorDirect",
-				"tooltip": "Changes the text for the Author directly, skipping needing to use Talk.",
-				"path": "res://GraphNodeTypes/Nodes/DialogueChangeAuthor.tscn"
-			},
-			{
-				"type": "node",
-				"name": "ChangeTextDirect",
-				"tooltip": "Changes the text for the Dialogue directly, skipping needing to use Talk.",
-				"path": "res://GraphNodeTypes/Nodes/DialogueChangeText.tscn"
-			}
-		]
-	},
-	{
-		"type": "category",
-		"name": "Display",
-		"tooltip": "Events that change how the world is displayed",
-		"content": [
-			{
-				"type": "node",
-				"name": "ChangeSprite",
-				"tooltip": "Changes the texture used for a given actor.",
-			},
-			{
-				"type": "node",
-				"name": "FlipCharacter",
-				"tooltip": "Flips a character to make them look left/right.",
-			},
-			{
-				"type": "node",
-				"name": "MoveCharacter",
-				"tooltip": "Moves a character on the screen to a new position.",
-			},
-		]
-	},
-	{
-		"type": "category",
-		"name": "Control",
-		"tooltip": "Events that modify the game.",
-		"content": [
-			{
-				"type": "node",
-				"name": "Wait",
-				"tooltip": "Pauses for the given amount of seconds.",
-				"path": "res://GraphNodeTypes/Nodes/ControlWait.tscn"
-			},
-			{
-				"type": "category",
-				"name": "Testy Test",
-				"content": [
-					{
-						"type": "node",
-						"name": "Wait2",
-						"tooltip": "Pauses for the given amount of seconds.",
-						"path": "res://GraphNodeTypes/Nodes/ControlWait.tscn"
-					},
-				]
-			}
-		]
-	}
-]
-
 var leaves : Array[TreeItem] = []
 
 func construct_tree(root: TreeItem, data: Array) -> void:
@@ -125,12 +43,12 @@ func _ready() -> void:
 		"name": "",
 		"content": NodePackSingleton.data
 	})
-	
+
 	construct_tree(root, NodePackSingleton.data.nodes)
-	
+
 	search.grab_focus()
 	find_nth_leaf_item(0).select(0)
-	
+
 
 
 func path_contains(text: String, toplevel: TreeItem) -> bool:
@@ -139,7 +57,7 @@ func path_contains(text: String, toplevel: TreeItem) -> bool:
 		if toplevel.get_metadata(0).name.to_lower().contains(text):
 			return true
 	# print("No meta found for top level! ", toplevel.get_text(0))
-	
+
 	for child : TreeItem in toplevel.get_children():
 		# print("%s : %s" % [child.get_metadata(0).name, child.get_metadata(0).name.to_lower().contains(text)])
 		if child.get_metadata(0).name.to_lower().contains(text):
@@ -148,23 +66,23 @@ func path_contains(text: String, toplevel: TreeItem) -> bool:
 		if child.get_metadata(0) is TreeNodeCategory:
 			if path_contains(text, child):
 				return true
-	
-	
+
+
 	return false
 
 func search_tree(text: String, toplevel: TreeItem = tree.get_root()) -> void:
 	var should_be_visible : bool = false
-	
+
 	if toplevel.get_metadata(0).name.to_lower().contains(text):
 		should_be_visible = true
 		# return toplevel.get_metadata(0).name.to_lower().contains(text)
-	
+
 	for child : TreeItem in toplevel.get_children():
 		if path_contains(text, child):
 			should_be_visible = true
 
 		search_tree(text, child)
-		
+
 	toplevel.visible = should_be_visible
 
 func show_tree() -> void:
@@ -179,10 +97,10 @@ func find_nth_leaf_item(n: int) -> TreeItem:
 	for leaf : TreeItem in leaves:
 		if leaf.visible: visible_leaves.append(leaf)
 		leaf.deselect(0)
-	
+
 	if len(visible_leaves) == 0:
 		return tree.get_root()
-	
+
 	return visible_leaves[wrap(n, 0, len(visible_leaves))]
 
 func _on_tree_item_activated() -> void:
@@ -208,7 +126,7 @@ func _on_search_text_changed(new_text: String) -> void:
 	show_tree()
 	if new_text != "":
 		search_tree(new_text.to_lower().replace(" ", ""))
-	
+
 	search_line = 0
 	find_nth_leaf_item(0).select(0)
 

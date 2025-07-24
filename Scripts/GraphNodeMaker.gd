@@ -3,7 +3,7 @@ class_name GraphNodeMaker extends RefCounted
 static func coalesce(a, b):
 	return a if a else b
 
-static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Callable, node_data : Dictionary = {}, allow_binding : bool = true):
+static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Callable, append_port : Callable, node_data : Dictionary = {}, allow_binding : bool = true):
 	match comp.type:
 			#! POTENTIAL REFACTOR: Use scenes instead of defining all through code
 			"Label":
@@ -12,7 +12,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				if comp.has("text"):
 					label.text = comp.text
 				
-				if comp.has("ports"): g.changed_ports.append({"node": label, "settings": comp.get("ports")})
+				if comp.has("ports"): append_port.call({"node": label, "settings": comp.get("ports")})
 
 				return label
 			"TextEdit":
@@ -32,7 +32,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				if allow_binding: binder.call(comp.name, te, "text")
 				if node_data.has(comp.name): te.text = coalesce(node_data.get(comp.name), "")
 				
-				if comp.has("ports"): g.changed_ports.append({"node": te, "settings": comp.get("ports")})
+				if comp.has("ports"): append_port.call({"node": te, "settings": comp.get("ports")})
 				
 				return te
 				
@@ -51,7 +51,8 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				if node_data.has(comp.name):
 					le.text = coalesce(node_data.get(comp.name), "")
 				
-				if comp.has("ports"): g.changed_ports.append({"node": le, "settings": comp.get("ports")})
+				if comp.has("ports"):
+					append_port.call({"node": le, "settings": comp.get("ports")})
 
 				return le
 
@@ -97,7 +98,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				if node_data.has(comp.name):
 					le.text = coalesce(node_data.get(comp.name), "")
 
-				if comp.has("ports"): g.changed_ports.append({"node": vbc, "settings": comp.get("ports")})
+				if comp.has("ports"): append_port.call({"node": vbc, "settings": comp.get("ports")})
 
 				return vbc
 				
@@ -163,7 +164,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				if node_data.has(comp.name):
 					file_edit.emit_signal("file_selected", coalesce(node_data.get(comp.name), ""))
 				
-				if comp.has("ports"): g.changed_ports.append({"node": vbc, "settings": comp.get("ports")})
+				if comp.has("ports"): append_port.call({"node": vbc, "settings": comp.get("ports")})
 
 				return vbc
 			"Dropdown":
@@ -176,7 +177,7 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				if node_data.has(comp.name):
 					dd.selected = coalesce(node_data.get(comp.name), 0)
 				
-				if comp.has("ports"): g.changed_ports.append({"node": dd, "settings": comp.get("ports")})
+				if comp.has("ports"): append_port.call({"node": dd, "settings": comp.get("ports")})
 				
 				return dd
 			#"Container":
@@ -222,32 +223,48 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 						"referrer": node,
 						"value": value
 					})
-					
-				var create_option = func ():
+				
+				var generated_name = comp.component.get("name", "unknown")
+				
+				var create_option = func (local_node_data = null):
 					for index in range(g.get_child_count()):
 						if g.get_child(index) == btn:
 							var new_comp = comp.get("component", {}).duplicate()
+
+							var container = HBoxContainer.new()
 							
-							#new_comp.name = "%s/%s%s" % [
-								#orig_comp.name,
-								#new_comp.name,
-								#btn.get_meta("created")
-							#]
+							var c : Control = generate_ui_item(new_comp, g,
+													own_binder, func(dict: Dictionary):
+														dict.node = container
+														append_port.call(dict)
+														,
+													{ generated_name : local_node_data })
 							
-							var c = generate_ui_item(new_comp, g,
-													 own_binder, node_data)
+							c.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 							
-							g.add_child(c)
+							container.add_child(c)
 							
-							g.move_child(c, index)
+							var close_button = Button.new()
+							close_button.icon = ThemeSingleton.load_theme_icon("circle-x.svg")
+							
+							container.add_child(close_button)
+							
+							g.add_child(container)
+							
+							g.move_child(container, index)
 							
 							btn.set_meta("created", btn.get_meta("created") + 1)
+							
+							break
 				
 				if node_data.has(comp.name):
-					for i in node_data.get(comp.name):
-						create_option.call()
+					for node in node_data.get(comp.name):
+						create_option.call_deferred(node)
 				
-				btn.pressed.connect(create_option)
+				btn.pressed.connect(func():
+					g.call_deferred("update_ports")
+					create_option.call()
+				)
 				
 				if allow_binding:
 					binder.call(
@@ -276,12 +293,15 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 # Doesn't really need to be a function but fuck you
 static func generate_ui(data: Dictionary, g: DynamicGraphNode, node_data = {}, allow_binding = true):
 	g.node_type = data.name
-	for comp in data.components:
-		g.add_child(generate_ui_item(comp, g, g.bind_value, node_data, allow_binding))
+	var appender = func(value: Dictionary):
+		g.changed_ports.append(value)
 	
-	for port in g.changed_ports:
-		if port is Dictionary:
-			g.change_ports(port.node, port.settings)
+	for comp in data.components:
+		g.add_child(generate_ui_item(comp, g, g.bind_value, appender, node_data, allow_binding))
+	
+	g.update_ports()
+	#HACK fixes generators' ports not working
+	g.call_deferred("update_ports")
 
 static func make_graph_node(data : Dictionary, node_data = {}, g : DynamicGraphNode = DynamicGraphNode.new()) -> DynamicGraphNode:
 #	var g = DynamicGraphNode.new() # don't remember why I named this `g`. going to refactor in VSCode later?
