@@ -39,6 +39,8 @@ func bind_value(bound_name: StringName, node: Node, value: Variant):
 	}
 
 func update_ports():
+	outports = []
+	clear_all_slots()
 	for port in changed_ports:
 		if port is Dictionary:
 			change_ports(port.node, port.settings)

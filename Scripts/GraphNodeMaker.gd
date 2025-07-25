@@ -49,7 +49,10 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				
 				if allow_binding: binder.call(comp.name, le, "text")
 				if node_data.has(comp.name):
-					le.text = coalesce(node_data.get(comp.name), "")
+					var d = node_data.get(comp.name)
+					if d and d is not String:
+						d = var_to_str(d)
+					le.text = coalesce(d, "")
 				
 				if comp.has("ports"):
 					append_port.call({"node": le, "settings": comp.get("ports")})
@@ -180,22 +183,9 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				if comp.has("ports"): append_port.call({"node": dd, "settings": comp.get("ports")})
 				
 				return dd
-			#"Container":
-				#var vbox = VBoxContainer.new()
-				#
-				#if comp.has("children"):
-					#for val in comp.children:
-						#vbox.add_child(generate_ui_item(val, g, true))
-				#
-				#return vbox
-			#"Creator":
-				#"""
-				#So:
-					#- Need "children" to be individually made and attached directly to `g`
-					  #so that they can have their own slot
-				#"""
-				#pass
 			"Generator":
+				# Holy shit this was complicated to make
+				# But it turned out quite well, I think.
 				var btn = Button.new()
 				
 				btn.icon = ThemeSingleton.load_theme_icon("circle-plus.svg")
@@ -226,6 +216,33 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				
 				var generated_name = comp.component.get("name", "unknown")
 				
+				var remove_option = func(option):
+					var changed = false
+
+					for index in g.get_child_count() - 1:
+						var node = g.get_child(index)
+						
+						if node == option and not changed:
+							changed = true
+							if g.outports.has(index):
+								#g.clear_slot(index)
+								g.changed_ports.pop_back()
+								
+								g.update_ports()
+								#var ge : GraphEdit = g.get_parent()
+								#for connection_index in range(len(ge.connections)):
+									#var connection = ge.connections[connection_index]
+									#if connection.from_node == g.name:
+										#if connection.from_port >= index:
+											#print(connection)
+											#connection.from_port -= 1
+											#ge.connections[connection_index] = connection
+											#ge.queue_redraw()
+							g.remove_child(node)
+							break
+
+					g.update_ports()
+
 				var create_option = func (local_node_data = null):
 					for index in range(g.get_child_count()):
 						if g.get_child(index) == btn:
@@ -246,6 +263,9 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 							
 							var close_button = Button.new()
 							close_button.icon = ThemeSingleton.load_theme_icon("circle-x.svg")
+							close_button.pressed.connect(func():
+								remove_option.call(container)
+							)
 							
 							container.add_child(close_button)
 							
