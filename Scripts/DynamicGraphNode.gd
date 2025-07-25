@@ -38,6 +38,14 @@ func bind_value(bound_name: StringName, node: Node, value: Variant):
 		"value": value
 	}
 
+# WARNING dead code, saving in case i need later
+func unbind_node(node: Node):
+	for bound_k in bound_data:
+		print("%s : %s" % [bound_data.get(bound_k), node])
+		if bound_data.get(bound_k).referrer == node:
+			bound_data.erase(bound_k)
+			break
+
 func update_ports():
 	outports = []
 	clear_all_slots()

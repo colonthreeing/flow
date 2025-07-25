@@ -233,14 +233,13 @@ nodes:
     id: !StringName d7e8fee2-ac0b-45a4-9fed-8d6977ded392
     type: !StringName ChoiceN
     connections:
-      - !StringName da60a97e-ebf3-4781-a5c8-0b12a8c50998
       - !StringName dbedd3ad-7439-44e6-a3c8-9f1a69c3184e
-      - !StringName 
-      - !StringName 
       - !StringName 61ced2b0-8cc8-4e5c-af45-9af9a7defb10
+      - !StringName 
+      - !StringName 
+      - !StringName 
     data:
       Options:
-        - 1
         - 2
         - 3
         - 4

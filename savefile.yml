@@ -1,18 +1,18 @@
 !Savefile
 camera:
-  offset: !Vector2 {x: 0,y: 0}
-  zoom: 0.6006479263305664
+  offset: !Vector2 {x: 42,y: 84}
+  zoom: 1.0686439275741577
 nodes:
   - !DynamicGraphNode
     type: Start
     position: !Vector2 {x: 120,y: 200}
-    size: !Vector2 {x: 180.00024,y: 66.000114}
+    size: !Vector2 {x: 180.00021,y: 66.00003}
     id: !StringName 7600e8f1-6c37-4658-970a-14cf3df19e78
     data: {}
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 680,y: 200}
-    size: !Vector2 {x: 180.001,y: 165.00027}
+    size: !Vector2 {x: 180.00073,y: 165.00018}
     id: !StringName d8247923-dec9-4691-9f46-3eb6ef2da5ab
     data:
       Dialogue: wow
@@ -20,7 +20,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 400,y: 200}
-    size: !Vector2 {x: 180.00005,y: 165.00027}
+    size: !Vector2 {x: 180.0003,y: 165.00018}
     id: !StringName 7067eda1-204e-4446-b0dd-c85628ad892d
     data:
       Dialogue: amazing
@@ -28,7 +28,7 @@ nodes:
   - !DynamicGraphNode
     type: Choice2
     position: !Vector2 {x: 960,y: 200}
-    size: !Vector2 {x: 180.00006,y: 160.00003}
+    size: !Vector2 {x: 180.00037,y: 159.99994}
     id: !StringName 35871070-06cc-4803-8d91-1f56c92de8c6
     data:
       Option1: >-
@@ -38,7 +38,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 1520,y: 440}
-    size: !Vector2 {x: 179.99841,y: 165.00024}
+    size: !Vector2 {x: 179.99841,y: 165.00003}
     id: !StringName 762deb25-d5de-48a3-9061-3668db1e9161
     data:
       Dialogue: "so what now?"
@@ -46,7 +46,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 1240,y: 440}
-    size: !Vector2 {x: 180.00037,y: 165.00024}
+    size: !Vector2 {x: 180.00061,y: 165.00003}
     id: !StringName 3546080f-78f2-4595-bc7e-1440187ffa52
     data:
       Dialogue: option 2 was selected
@@ -54,7 +54,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 1800,y: 200}
-    size: !Vector2 {x: 179.99976,y: 165.00027}
+    size: !Vector2 {x: 179.99951,y: 165.00018}
     id: !StringName eb290047-c471-4a48-98c1-4c856adb9817
     data:
       Dialogue: ok then
@@ -62,7 +62,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 1520,y: 200}
-    size: !Vector2 {x: 179.99841,y: 165.00027}
+    size: !Vector2 {x: 179.99841,y: 165.00018}
     id: !StringName c36bcbf7-f4af-4832-ae28-e29cf95ee60a
     data:
       Dialogue: damn
@@ -70,7 +70,7 @@ nodes:
   - !DynamicGraphNode
     type: Tunnel Entrance
     position: !Vector2 {x: 2099.9375,y: 200.48172}
-    size: !Vector2 {x: 179.99866,y: 95.00015}
+    size: !Vector2 {x: 179.99902,y: 95.00008}
     id: !StringName cc042a09-ca60-460d-8f97-f8e515dcbf62
     data:
       TunnelName: >-
@@ -78,7 +78,7 @@ nodes:
   - !DynamicGraphNode
     type: Tunnel Exit
     position: !Vector2 {x: 400,y: 0}
-    size: !Vector2 {x: 180.00029,y: 95}
+    size: !Vector2 {x: 180.00055,y: 95}
     id: !StringName 46664d50-0418-4092-9218-1d5988abc563
     data:
       TunnelName: >-
@@ -86,7 +86,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 1800,y: 440}
-    size: !Vector2 {x: 259.99927,y: 165}
+    size: !Vector2 {x: 259.99854,y: 165.00003}
     id: !StringName 2f95f4f8-96a7-4d23-a86d-ecb415f7ca95
     data:
       Dialogue: "let's talk about something maybe?"
@@ -94,7 +94,7 @@ nodes:
   - !DynamicGraphNode
     type: Choice2
     position: !Vector2 {x: 2140,y: 440}
-    size: !Vector2 {x: 179.99976,y: 149.00012}
+    size: !Vector2 {x: 180,y: 149.00003}
     id: !StringName 432c4c2d-fcf5-4460-a1ed-f1d9001edfc7
     data:
       Option1: >-
@@ -104,7 +104,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 2660,y: 440}
-    size: !Vector2 {x: 180.00098,y: 165}
+    size: !Vector2 {x: 180.00098,y: 165.00003}
     id: !StringName ebcc6070-68e2-477c-83bb-84429d175212
     data:
       Dialogue: holy shit
@@ -112,7 +112,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 2400,y: 440}
-    size: !Vector2 {x: 179.99951,y: 165}
+    size: !Vector2 {x: 179.99951,y: 165.00003}
     id: !StringName 911e8127-b256-441e-825e-148de18d796f
     data:
       Dialogue: i'm gay
@@ -120,7 +120,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 2400,y: 640}
-    size: !Vector2 {x: 179.99951,y: 165}
+    size: !Vector2 {x: 179.99951,y: 165.00006}
     id: !StringName 34aff856-18a9-4ad7-b430-786e76a4ccfe
     data:
       Dialogue: so... ralsei
@@ -128,7 +128,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 2660,y: 640}
-    size: !Vector2 {x: 180.00098,y: 165}
+    size: !Vector2 {x: 180.00098,y: 165.00006}
     id: !StringName a6a8a451-6f5d-4cb7-8fcc-1cbd397dc995
     data:
       Dialogue: "yeah?"
@@ -136,7 +136,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 2900,y: 640}
-    size: !Vector2 {x: 180.00012,y: 165}
+    size: !Vector2 {x: 180.00122,y: 165.00006}
     id: !StringName d53826f1-6730-469d-884b-dce4508d23dc
     data:
       Dialogue: "he pretty cool right?"
@@ -144,7 +144,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 3160,y: 640}
-    size: !Vector2 {x: 179.99988,y: 165}
+    size: !Vector2 {x: 180,y: 165.00006}
     id: !StringName ef7f07bb-412f-4190-b063-f6bc62d82efa
     data:
       Dialogue: fo sho
@@ -152,7 +152,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 3440,y: 640}
-    size: !Vector2 {x: 180.00073,y: 165}
+    size: !Vector2 {x: 180.00024,y: 165.00006}
     id: !StringName a0971e8d-c6eb-4610-b453-856ba89e7c52
     data:
       Dialogue: ":3"
@@ -160,7 +160,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 2900,y: 440}
-    size: !Vector2 {x: 180.00012,y: 180.00012}
+    size: !Vector2 {x: 180.00122,y: 180.00003}
     id: !StringName 1bc7e4c2-5f5a-422e-9380-e5136249de35
     data:
       Dialogue: "does that mean you're into me?"
@@ -168,7 +168,7 @@ nodes:
   - !DynamicGraphNode
     type: Choice2
     position: !Vector2 {x: 3140,y: 440}
-    size: !Vector2 {x: 179.99988,y: 149.00012}
+    size: !Vector2 {x: 180,y: 149.00003}
     id: !StringName 017f534b-2901-4f70-a0f3-2b1d958c85aa
     data:
       Option1: >-
@@ -178,7 +178,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 3440,y: 440}
-    size: !Vector2 {x: 180.00073,y: 180.00012}
+    size: !Vector2 {x: 180.00024,y: 180.00003}
     id: !StringName de5d871d-65fa-4312-a342-a79b3eb3991e
     data:
       Dialogue: that's.... not how it works. at all.
@@ -186,7 +186,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 3440,y: 240}
-    size: !Vector2 {x: 180.00073,y: 180.00026}
+    size: !Vector2 {x: 180.00024,y: 180.00049}
     id: !StringName 0b88ab9a-e699-4142-8124-527550b45fb8
     data:
       Dialogue: "of course, ily pookie <3"
@@ -194,7 +194,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 3680,y: 240}
-    size: !Vector2 {x: 180,y: 165.00026}
+    size: !Vector2 {x: 179.99976,y: 165.00043}
     id: !StringName 79ea4ebe-0104-4ec2-970f-be24dea55832
     data:
       Dialogue: "ily too <3"
@@ -202,7 +202,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 3680,y: 440}
-    size: !Vector2 {x: 180,y: 165}
+    size: !Vector2 {x: 179.99976,y: 165.00003}
     id: !StringName 29b718cc-15cd-40e9-a44e-37dc5f1b989a
     data:
       Dialogue: shit
@@ -210,7 +210,7 @@ nodes:
   - !DynamicGraphNode
     type: Tunnel Exit
     position: !Vector2 {x: 1240,y: 680}
-    size: !Vector2 {x: 180.00012,y: 95}
+    size: !Vector2 {x: 180.00012,y: 95.00006}
     id: !StringName c8820c21-8123-4727-95c7-a42937290d86
     data:
       TunnelName: >-
@@ -218,7 +218,7 @@ nodes:
   - !DynamicGraphNode
     type: Tunnel Entrance
     position: !Vector2 {x: 4200,y: 640}
-    size: !Vector2 {x: 180.00098,y: 95}
+    size: !Vector2 {x: 180.00098,y: 95.00006}
     id: !StringName 7ee73c71-7fbb-4392-a101-193d7d599ea2
     data:
       TunnelName: >-
@@ -226,7 +226,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 1240,y: 200}
-    size: !Vector2 {x: 180.00037,y: 165.00027}
+    size: !Vector2 {x: 180.00061,y: 165.00018}
     id: !StringName c6735ccf-37f3-49bc-98b9-c9f103f2b34e
     data:
       Dialogue: option 1 was selected
@@ -234,18 +234,17 @@ nodes:
   - !DynamicGraphNode
     type: Comment
     position: !Vector2 {x: 1240,y: 60}
-    size: !Vector2 {x: 180.00037,y: 120.000305}
+    size: !Vector2 {x: 180.00061,y: 120.000305}
     id: !StringName fd019972-aaaf-4a23-92d5-acd6ddfa9bed
     data:
       Comment: Strangely this doesn't like it when I try to autoarrange them...
   - !DynamicGraphNode
     type: ChoiceN
     position: !Vector2 {x: 400,y: 440}
-    size: !Vector2 {x: 179.99992,y: 319.9989}
+    size: !Vector2 {x: 180.00018,y: 319.99857}
     id: !StringName d7e8fee2-ac0b-45a4-9fed-8d6977ded392
     data:
       Options:
-        - 1
         - 2
         - 3
         - 4
@@ -254,7 +253,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 680,y: 620}
-    size: !Vector2 {x: 180.00003,y: 165.00003}
+    size: !Vector2 {x: 179.99976,y: 165.00006}
     id: !StringName dbedd3ad-7439-44e6-a3c8-9f1a69c3184e
     data:
       Dialogue: 
@@ -262,7 +261,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 680,y: 800}
-    size: !Vector2 {x: 180.00003,y: 179.99997}
+    size: !Vector2 {x: 179.99976,y: 180.00037}
     id: !StringName 61ced2b0-8cc8-4e5c-af45-9af9a7defb10
     data:
       Dialogue: waow
@@ -270,7 +269,7 @@ nodes:
   - !DynamicGraphNode
     type: Talk
     position: !Vector2 {x: 680,y: 440}
-    size: !Vector2 {x: 180.00003,y: 165.00006}
+    size: !Vector2 {x: 179.99976,y: 165.00003}
     id: !StringName da60a97e-ebf3-4781-a5c8-0b12a8c50998
     data:
       Dialogue: woah
@@ -278,7 +277,7 @@ nodes:
   - !DynamicGraphNode
     type: Comment
     position: !Vector2 {x: 1440,y: 60}
-    size: !Vector2 {x: 180,y: 120}
+    size: !Vector2 {x: 179.99976,y: 120}
     id: !StringName d8c32d97-e479-412f-9282-c7f694b84922
     data:
       Comment: Actually it seems like autoarrange is lowk kinda broken
@@ -430,17 +429,12 @@ connections:
     keep_alive: false
   - from_node: !StringName d7e8fee2-ac0b-45a4-9fed-8d6977ded392
     from_port: 0
-    to_node: !StringName da60a97e-ebf3-4781-a5c8-0b12a8c50998
-    to_port: 0
-    keep_alive: false
-  - from_node: !StringName d7e8fee2-ac0b-45a4-9fed-8d6977ded392
-    from_port: 4
-    to_node: !StringName 61ced2b0-8cc8-4e5c-af45-9af9a7defb10
+    to_node: !StringName dbedd3ad-7439-44e6-a3c8-9f1a69c3184e
     to_port: 0
     keep_alive: false
   - from_node: !StringName d7e8fee2-ac0b-45a4-9fed-8d6977ded392
     from_port: 1
-    to_node: !StringName dbedd3ad-7439-44e6-a3c8-9f1a69c3184e
+    to_node: !StringName 61ced2b0-8cc8-4e5c-af45-9af9a7defb10
     to_port: 0
     keep_alive: false
 vars:

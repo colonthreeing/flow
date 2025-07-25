@@ -196,18 +196,6 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				btn.set_meta("own_refs", [])
 				
 				var own_binder = func(_name, node, value):
-					#var v = btn.get_meta("values")
-					#print(node, value)
-					#
-					#var val = g.evaluate_single_bound({
-						#"referrer": node,
-						#"value": value
-					#})
-					#
-					#val = node.get(value)
-					#
-					#print(val)
-					#v.append(val)
 					var meta = btn.get_meta("own_refs")
 					meta.append({
 						"referrer": node,
@@ -216,33 +204,73 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 				
 				var generated_name = comp.component.get("name", "unknown")
 				
-				var remove_option = func(option):
-					var changed = false
-
-					for index in g.get_child_count() - 1:
-						var node = g.get_child(index)
+				var remove_option = func(option: HBoxContainer):
+					var ge: GraphEdit = g.get_parent()
+					var cons = ge.connections.duplicate_deep()
+					var removed_queue : Array[int] = []
+					for connection_index in range(len(cons)):
+						var connection = ge.connections[connection_index]
+						if connection.from_node == g.name:
+							var opt_index = option.get_index()
+							if opt_index == connection.from_port:
+								print("Removing item!!")
+								removed_queue.append(connection_index)
+								
+								var new_refs = btn.get_meta("own_refs").duplicate_deep()
+								
+								for ref_i in range(len(new_refs)):
+									# need to call get_parent because of the hbox
+									if new_refs[ref_i].referrer.get_parent() == option:
+										new_refs.remove_at(ref_i)
+										btn.set_meta("own_refs", new_refs)
+										break
+								
+								option.queue_free()
+							elif opt_index < connection.from_port:
+								cons[connection_index].from_port -= 1
+					
+					for i in removed_queue:
+						cons.remove_at(i)
+					
+					ge.connections = cons
+					
+					ge.queue_redraw()
+					ge.get_child(0, true).queue_redraw()
 						
+					"""
 						if node == option and not changed:
 							changed = true
+							g.remove_child(node)
+							
 							if g.outports.has(index):
 								#g.clear_slot(index)
-								g.changed_ports.pop_back()
-								
 								g.update_ports()
-								#var ge : GraphEdit = g.get_parent()
-								#for connection_index in range(len(ge.connections)):
-									#var connection = ge.connections[connection_index]
-									#if connection.from_node == g.name:
-										#if connection.from_port >= index:
+								var ge : GraphEdit = g.get_parent()
+								var to_delete_index = 0
+								for connection_index in range(len(ge.connections)):
+									var connection = ge.connections[connection_index].duplicate_deep()
+									if connection.from_node == g.name:
+										print("%s : %s (%s)" % [connection.from_port, index, connection.from_port >= index])
+										#print(connection)
+										if connection.from_port == index - 1:
+											# ge.connections.remove_at(connection_index)
+											to_delete_index = connection_index
+										elif connection.from_port > index - 1:
+											connection.from_port -= 1
+											ge.connections[connection_index] = connection
 											#print(connection)
 											#connection.from_port -= 1
 											#ge.connections[connection_index] = connection
 											#ge.queue_redraw()
-							g.remove_child(node)
-							break
+
+								ge.connections.remove_at(to_delete_index)
+								ge.queue_redraw()
+								ge.get_child(0, true).queue_redraw()
+								break
 
 					g.update_ports()
-
+					"""
+				
 				var create_option = func (local_node_data = null):
 					for index in range(g.get_child_count()):
 						if g.get_child(index) == btn:
@@ -264,6 +292,8 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 							var close_button = Button.new()
 							close_button.icon = ThemeSingleton.load_theme_icon("circle-x.svg")
 							close_button.pressed.connect(func():
+								print(container)
+								print("Hello!")
 								remove_option.call(container)
 							)
 							
@@ -302,7 +332,6 @@ static func generate_ui_item(comp: Dictionary, g: DynamicGraphNode, binder: Call
 							
 							return found
 							
-							# return g.evaluate_bound(btn.get_meta("own_refs"))
 					)
 				
 				return btn

@@ -44,8 +44,6 @@ Flow="*res://addons/flow/autoload.gd"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-display_server/driver="wayland"
-display_server/driver.linuxbsd="wayland"
 
 [editor_plugins]
 
