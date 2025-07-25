@@ -47,6 +47,7 @@ func unbind_node(node: Node):
 			break
 
 func update_ports():
+	print("Updating ports...")
 	outports = []
 	clear_all_slots()
 	for port in changed_ports:
